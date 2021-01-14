@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/home/gridview_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class TodaySpecialGrid extends StatefulWidget {
   @override
@@ -16,7 +17,20 @@ class _TodaySpecialGridState extends State<TodaySpecialGrid> {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
-    return Text('item changed!');/*GridView.builder(
+    return StaggeredGridView.countBuilder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      crossAxisCount: 2, 
+      itemCount: 12,
+      itemBuilder: (context, index) {
+        return TodaySpecialItem();
+      }, 
+      staggeredTileBuilder: (index) {
+        return StaggeredTile.count(1, index.isEven ? 1.15 : 1.15);
+      },
+     );
+    
+    /*GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: 8,

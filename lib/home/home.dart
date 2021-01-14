@@ -82,7 +82,7 @@ class Home extends StatelessWidget {
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(
-                          Icons.icecream,
+                          MyIcons.iceCreamIcon,
                           size: 32.0,
                           color: HexColor('#5D2300'),
                         ),

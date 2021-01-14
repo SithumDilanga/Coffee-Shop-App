@@ -22,7 +22,9 @@ class MyIcons {
   //static const _kFontPkg = null;
 
   static const _bFontFam = 'BurgerIcon';
+  static const _cFontFam = 'IceCreamIcon';
 
   static const IconData coffeIcon = IconData(0xe800, fontFamily: _kFontFam);
   static const IconData burgerIcon = IconData(0xe800, fontFamily: _bFontFam);
+  static const IconData iceCreamIcon = IconData(0xe800, fontFamily: _cFontFam);
 }
