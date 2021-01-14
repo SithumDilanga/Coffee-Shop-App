@@ -16,7 +16,7 @@ class _TodaySpecialGridState extends State<TodaySpecialGrid> {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
-    return Text('item!');/*GridView.builder(
+    return Text('item changed!');/*GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: 8,
