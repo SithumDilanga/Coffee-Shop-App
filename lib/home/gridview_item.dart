@@ -31,7 +31,7 @@ class _TodaySpecialItemState extends State<TodaySpecialItem> {
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: Text('230 LKR', style: TextStyle(fontSize: 16.0, color: Colors.brown[500])),
+                  child: Text('250 LKR', style: TextStyle(fontSize: 16.0, color: Colors.brown[500])),
                 ),
               ),
             ]
