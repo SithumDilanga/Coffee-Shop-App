@@ -1,15 +1,15 @@
 import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:flutter/material.dart';
 
-class CoffeePage extends StatefulWidget {
+class CoffeeItem extends StatefulWidget {
   @override
-  _CoffeePageState createState() => _CoffeePageState();
+  _CoffeeItemState createState() => _CoffeeItemState();
 }
 
-class _CoffeePageState extends State<CoffeePage> {
+class _CoffeeItemState extends State<CoffeeItem> {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) { 
+    return /*MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,//HexColor('#FFFFFF'),
         body: SingleChildScrollView(
@@ -20,7 +20,7 @@ class _CoffeePageState extends State<CoffeePage> {
                 image: DecorationImage(
                   image: AssetImage('assets/coffee-beans-background.jpg'),
                   fit: BoxFit.contain,
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                 )
               ),
               child: Padding(
@@ -55,13 +55,41 @@ class _CoffeePageState extends State<CoffeePage> {
                       ]
                     ),
                     SizedBox(height: 50.0),
-                    TodaySpecialGrid()
+                    //TodaySpecialGrid()
                   ],
                 ),
               )
             ),
         ),
       )
+    );*/
+    
+    MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/coffee-beans-background.jpg'),
+                fit: BoxFit.cover,
+                alignment: Alignment.topLeft,
+              )
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Text('data')),
+            )/*Column(
+              children: <Widget> [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {},
+                )
+              ]
+            ),*/
+          ),
+        ),
+      ),
     );
   }
 }
