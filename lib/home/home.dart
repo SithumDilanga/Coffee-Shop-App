@@ -1,6 +1,7 @@
 import 'package:coffee_shop_app/home/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:coffee_shop_app/home/gridview.dart';
+import 'package:coffee_shop_app/main-pages/coffee_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -49,7 +50,11 @@ class Home extends StatelessWidget {
                             ],
                           ),
                         ),
-                        onPressed:() {}
+                        onPressed:() {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => CoffeePage()
+                          ));
+                        }
                       ),
                     ),
                     SizedBox(height: 16.0),
