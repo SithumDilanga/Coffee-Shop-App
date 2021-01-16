@@ -31,8 +31,9 @@ class _CoffeeItemState extends State<CoffeeItem> {
                     ),
                   ),
                 ),
-                SizedBox(height: 100),
+                SizedBox(height: 120),
                 Card(
+                  elevation: 4,
                   child: Column(
                     children: <Widget> [
                       Padding(
@@ -40,9 +41,9 @@ class _CoffeeItemState extends State<CoffeeItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget> [
-                            Text('Cappuccino', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),),
+                            Text('Cappuccino', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),),
 
-                            Text('240 LKR',style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: HexColor('#5D2300')),),
+                            Text('240 LKR',style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700, color: HexColor('#5D2300')),),
                           ]
                         ),
                       ),
@@ -50,6 +51,81 @@ class _CoffeeItemState extends State<CoffeeItem> {
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
                       ),
+                      SizedBox(height: 8.0),
+                      Row(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.motion_photos_paused, size: 34.0,),
+                            onPressed: () {},
+                          ),
+                          SizedBox(width: 8.0),
+                          Text('2',style: TextStyle(fontSize: 16.0),),
+                          SizedBox(width: 8.0),
+                          IconButton(
+                            icon: Icon(Icons.motion_photos_pause, size: 34.0,),
+                            onPressed: () {},
+                          )
+                        ]
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0,),
+                        child: Row(
+                          children: <Widget> [
+                            Text('Table No: '),
+                            SizedBox(width: 8.0),
+                            Expanded(
+                              child: TextFormField(      // email field
+                                cursorColor: Colors.brown[500],
+                                decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.brown[500])
+                                  ),
+                                //hintText: 'Enter your Email'
+                                ),
+                                // validation
+                                validator: (email) => email.isEmpty ? 'Enter the email' : null,
+                                onChanged: (emailInput) {
+                                setState(() {
+                                  // email = emailInput;
+                                });
+                              },
+                            ),
+                            ), 
+                          ]
+                        ),
+                      ),
+                      SizedBox(height: 24.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget> [
+                            RaisedButton(
+                              color: Colors.brown,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                                child: Text('Pay Direct', style: TextStyle(color: Colors.white, fontSize: 16.0),),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35.0)
+                              ),
+                              onPressed: () {},
+                            ),
+                            RaisedButton(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                                child: Text('Pay Online', style: TextStyle(color: Colors.brown, fontSize: 16.0), ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35.0),
+                                side: BorderSide(color: Colors.brown)
+                              ),
+                              onPressed: () {},
+                            ),
+                          ]
+                        ),
+                      )
                     ] 
                   ),
                 )
