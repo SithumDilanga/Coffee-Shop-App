@@ -1,20 +1,31 @@
 import 'package:coffee_shop_app/home/gridview.dart';
+import 'package:coffee_shop_app/models/item.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
+import 'package:provider/provider.dart';
 
-class CoffeeItem extends StatefulWidget {
+class CoffeeItem extends StatefulWidget{
   @override
   _CoffeeItemState createState() => _CoffeeItemState();
 }
 
 class _CoffeeItemState extends State<CoffeeItem> {
+
+  int itemCount = 1;
+  final tableNoController = TextEditingController();
+  String errorMsg;
+
   @override
   Widget build(BuildContext context) { 
+
+    // var item = Provider.of<Item>(context);
+
     return Material(
       child: Stack(
         children: <Widget>[
-          Image.asset('assets/cappuccino.jpg'),
+          Image.asset('assets/cappuccino.jpg'), // item image
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -23,7 +34,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                   alignment: Alignment.topLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 32.0),
-                    child: IconButton(
+                    child: IconButton(         // back button
                       icon: Icon(Icons.arrow_back, size: 30,),
                       color: Colors.white,
                       onPressed: () {
@@ -37,6 +48,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                   elevation: 4,
                   child: Column(
                     children: <Widget> [
+                      //----------- item title -----------
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 8.0),
                         child: Row(
@@ -48,32 +60,51 @@ class _CoffeeItemState extends State<CoffeeItem> {
                           ]
                         ),
                       ),
+                      //----------- End item title -----------
+
+                      //--------- item description ----------
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
                       ),
+                      //--------- End item description ----------
                       SizedBox(height: 8.0),
+                      //----------- item amount ----------
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Row(
                           children: <Widget>[
                             IconButton(
                               icon: Icon(MyIcons.minuIcon, size: 34.0, color: Colors.brown,),
-                              onPressed: () {},
+                              onPressed: () {
+                                //item.decrease();
+                                setState(() {
+                                  itemCount--;
+                                  print(itemCount);
+                                });
+                              },
                             ),
                             SizedBox(width: 8.0),
-                            Text('2',style: TextStyle(fontSize: 16.0),),
+                            Text('${itemCount}',style: TextStyle(fontSize: 16.0),),
                             SizedBox(width: 8.0),
                             IconButton(
                               icon: Icon(MyIcons.plusIcon, size: 34.0, color: Colors.brown,),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  itemCount++;
+                                  print(itemCount);
+                                });
+                                //item.increase(itemCount);
+                              },
                             ),
                           ]
                         ),
                       ),
+                      //----------- End item amount ----------
                       SizedBox(height:24.0),
+                      //---------- table no input ----------
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0, right: 16.0,),
+                        padding: const EdgeInsets.only(left: 16.0, right: 48.0,),
                         child: Row(
                           children: <Widget> [
                             Text('Table No: ', style: TextStyle(fontSize: 16.0),),
@@ -81,7 +112,8 @@ class _CoffeeItemState extends State<CoffeeItem> {
                             Expanded(
                               child: Container(
                                 height: 30.0,
-                                child: TextFormField(      // email field
+                                child: TextFormField(  
+                                  controller: tableNoController,    // email field
                                   cursorColor: Colors.brown[500],
                                   decoration: InputDecoration(
                                     //contentPadding: EdgeInsets.only(top: 1.0),
@@ -94,8 +126,11 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   //hintText: 'Enter your Email'
                                   ),
                                   // validation
-                                  validator: (tableNo) => tableNo.isEmpty ? 'Enter table No:' : null,
-                                  onChanged: (tableNo) { },
+                                  validator: (tableNo) {
+                                    errorMsg = tableNo.isEmpty ? 'Enter table No:' : null;
+                                    
+                                  },
+                                  //onChanged: (tableNum) { },
                                 style: TextStyle(fontSize: 16.0),
                               ),
                               ),
@@ -103,7 +138,9 @@ class _CoffeeItemState extends State<CoffeeItem> {
                           ]
                         ),
                       ),
+                      //---------- End table no input ----------
                       SizedBox(height: 24.0),
+                      // ---------- Buttons ----------
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
                         child: Row(
@@ -112,18 +149,26 @@ class _CoffeeItemState extends State<CoffeeItem> {
                             RaisedButton(
                               color: Colors.brown,
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                                padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                                 child: Text('Pay Direct', style: TextStyle(color: Colors.white, fontSize: 16.0),),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(35.0)
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                print(tableNoController.text);
+                                if(tableNoController.text == '') {
+                                  Fluttertoast.showToast(
+                                    msg: 'Please Enter Table Number!',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                  );
+                                }
+                              },
                             ),
                             RaisedButton(
                               color: Colors.white,
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                                padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
                                 child: Text('Pay Online', style: TextStyle(color: Colors.brown, fontSize: 16.0), ),
                               ),
                               shape: RoundedRectangleBorder(
@@ -134,7 +179,8 @@ class _CoffeeItemState extends State<CoffeeItem> {
                             ),
                           ]
                         ),
-                      )
+                      ),
+                      // ---------- End Buttons ----------
                     ] 
                   ),
                 )
