@@ -23,8 +23,13 @@ class MyIcons {
 
   static const _bFontFam = 'BurgerIcon';
   static const _cFontFam = 'IceCreamIcon';
+  static const _dFontFam = 'MinusIcon';
+  static const _eFontFam = 'PlusIcon';
 
   static const IconData coffeIcon = IconData(0xe800, fontFamily: _kFontFam);
   static const IconData burgerIcon = IconData(0xe800, fontFamily: _bFontFam);
   static const IconData iceCreamIcon = IconData(0xe800, fontFamily: _cFontFam);
+  static const IconData minuIcon = IconData(0xe800, fontFamily: _dFontFam);
+  static const IconData plusIcon = IconData(0xe800, fontFamily: _eFontFam);
+
 }

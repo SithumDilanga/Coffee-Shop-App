@@ -82,5 +82,13 @@ flutter:
     - family: IceCreamIcon
       fonts:
         - asset: assets/icons/IceCreamIcon.ttf 
+
+    - family: MinusIcon
+      fonts:
+        - asset: assets/icons/MinusIcon.ttf
+
+    - family: PlusIcon
+      fonts:
+        - asset: assets/icons/PlusIcon.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

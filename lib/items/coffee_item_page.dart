@@ -1,6 +1,7 @@
 import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:coffee_shop_app/icons/my_icons.dart';
 
 class CoffeeItem extends StatefulWidget {
   @override
@@ -52,44 +53,52 @@ class _CoffeeItemState extends State<CoffeeItem> {
                         child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
                       ),
                       SizedBox(height: 8.0),
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.motion_photos_paused, size: 34.0,),
-                            onPressed: () {},
-                          ),
-                          SizedBox(width: 8.0),
-                          Text('2',style: TextStyle(fontSize: 16.0),),
-                          SizedBox(width: 8.0),
-                          IconButton(
-                            icon: Icon(Icons.motion_photos_pause, size: 34.0,),
-                            onPressed: () {},
-                          )
-                        ]
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Row(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(MyIcons.minuIcon, size: 34.0, color: Colors.brown,),
+                              onPressed: () {},
+                            ),
+                            SizedBox(width: 8.0),
+                            Text('2',style: TextStyle(fontSize: 16.0),),
+                            SizedBox(width: 8.0),
+                            IconButton(
+                              icon: Icon(MyIcons.plusIcon, size: 34.0, color: Colors.brown,),
+                              onPressed: () {},
+                            ),
+                          ]
+                        ),
                       ),
+                      SizedBox(height:24.0),
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0,),
                         child: Row(
                           children: <Widget> [
-                            Text('Table No: '),
+                            Text('Table No: ', style: TextStyle(fontSize: 16.0),),
                             SizedBox(width: 8.0),
                             Expanded(
-                              child: TextFormField(      // email field
-                                cursorColor: Colors.brown[500],
-                                decoration: InputDecoration(
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.brown[500])
+                              child: Container(
+                                height: 30.0,
+                                child: TextFormField(      // email field
+                                  cursorColor: Colors.brown[500],
+                                  decoration: InputDecoration(
+                                    //contentPadding: EdgeInsets.only(top: 1.0),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.brown[500],)
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.brown[300], ),
+                                    ),
+                                  //hintText: 'Enter your Email'
                                   ),
-                                //hintText: 'Enter your Email'
-                                ),
-                                // validation
-                                validator: (email) => email.isEmpty ? 'Enter the email' : null,
-                                onChanged: (emailInput) {
-                                setState(() {
-                                  // email = emailInput;
-                                });
-                              },
-                            ),
+                                  // validation
+                                  validator: (tableNo) => tableNo.isEmpty ? 'Enter table No:' : null,
+                                  onChanged: (tableNo) { },
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                              ),
                             ), 
                           ]
                         ),
