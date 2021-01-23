@@ -1,3 +1,4 @@
+import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/home/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:coffee_shop_app/home/gridview.dart';
@@ -131,8 +132,11 @@ class Home extends StatelessWidget {
                       )
                     ],
                   ),
-                  // Burger button for navagation drawer
-                  Padding(
+                  // Burger icon and cart icon
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:<Widget> [
+                      Padding(
                     padding: const EdgeInsets.only(left: 8.0, top: 32.0),
                     child: IconButton(
                       icon: Icon(Icons.menu),
@@ -142,6 +146,19 @@ class Home extends StatelessWidget {
                         _scaffoldState.currentState.openDrawer();
                       }
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 32.0),
+                    child: IconButton(
+                      icon: Icon(Icons.shopping_cart),
+                      color: Colors.white,
+                      iconSize: 32.0,
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                      },
+                    ),
+                  ),
+                    ]
                   ),
                 ]
                 ),

@@ -1,4 +1,5 @@
 import 'package:coffee_shop_app/home/gridview.dart';
+import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,6 +22,8 @@ class _CoffeeItemState extends State<CoffeeItem> {
   Widget build(BuildContext context) { 
 
     // var item = Provider.of<Item>(context);
+
+    var cart = Provider.of<Cart>(context);
 
     return Material(
       child: Stack(
@@ -150,7 +153,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                               color: Colors.brown,
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
-                                child: Text('Pay Direct', style: TextStyle(color: Colors.white, fontSize: 16.0),),
+                                child: Text('Add to Cart', style: TextStyle(color: Colors.white, fontSize: 16.0),),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(35.0)
@@ -163,13 +166,16 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                     toastLength: Toast.LENGTH_SHORT,
                                   );
                                 }
+
+                                cart.addToCart(Item(itemName: 'Latte', itemPrice: 240));
+                                
                               },
                             ),
                             RaisedButton(
                               color: Colors.white,
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
-                                child: Text('Pay Online', style: TextStyle(color: Colors.brown, fontSize: 16.0), ),
+                                child: Text('Order Now', style: TextStyle(color: Colors.brown, fontSize: 16.0), ),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(35.0),

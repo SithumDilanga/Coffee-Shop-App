@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/authenticate/login.dart';
 import 'package:coffee_shop_app/authenticate/sign_up.dart';
+import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/user.dart';
 import 'package:coffee_shop_app/services/auth.dart';
@@ -13,7 +14,8 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     ChangeNotifierProvider(
-      create: (context) => Item(),
+      //create: (context) => Item(),
+      create: (context) => Cart(),
       child: MyApp(),
     )
   );
