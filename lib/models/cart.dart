@@ -10,8 +10,10 @@ class Cart with ChangeNotifier{
     notifyListeners();
   }
 
-  void removeFromCart(Item item) {
-    items.remove(item);
+  void removeFromCart(int index) {
+    print('index in cart : ' + index.toString());
+    print(items.remove(index));
+    items.remove(index);
     notifyListeners();
   }
 

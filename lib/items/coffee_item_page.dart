@@ -14,8 +14,12 @@ class CoffeeItem extends StatefulWidget{
 
 class _CoffeeItemState extends State<CoffeeItem> {
 
+  String itemName = 'Cappuccino';
+  double itemPrice = 240;
+  int tableNo;
   int itemCount = 1;
   final tableNoController = TextEditingController();
+  
   String errorMsg;
 
   @override
@@ -57,9 +61,9 @@ class _CoffeeItemState extends State<CoffeeItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget> [
-                            Text('Cappuccino', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),),
+                            Text(itemName, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),),
 
-                            Text('240 LKR',style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700, color: HexColor('#5D2300')),),
+                            Text('${itemPrice} LKR',style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700, color: HexColor('#5D2300')),),
                           ]
                         ),
                       ),
@@ -165,10 +169,14 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                     msg: 'Please Enter Table Number!',
                                     toastLength: Toast.LENGTH_SHORT,
                                   );
-                                }
+                                } else {
 
-                                cart.addToCart(Item(itemName: 'Latte', itemPrice: 240));
-                                
+                                  // TODO: check tableNoController data type
+
+                                  // calling add to cart method
+                                  cart.addToCart(Item(itemName:itemName, itemPrice: itemPrice, amount: itemCount, tableNo: tableNoController.text));
+
+                                }                               
                               },
                             ),
                             RaisedButton(
