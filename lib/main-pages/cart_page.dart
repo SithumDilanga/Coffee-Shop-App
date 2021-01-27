@@ -1,5 +1,4 @@
 import 'package:coffee_shop_app/models/cart.dart';
-import 'package:coffee_shop_app/models/item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -69,16 +68,46 @@ class _CartPageState extends State<CartPage> {
                                   icon: Icon(Icons.close), 
                                   onPressed: (){
 
-                                    cartItems.removeFromCart(index);
-
-                                    /*cart.removeFromCart(Item(
-                                      itemName: cart.items[index].itemName,
-                                      itemPrice: cart.items[index].itemPrice,
-                                      amount: cart.items[index].amount,
-                                      tableNo: cart.items[index].tableNo
-                                    ));*/
-
-                                    print(index);
+                                    // ------- alert dialog --------
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Center(
+                                            child: Text('Remove from the cart ?')
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton( // yes button
+                                              child: Text(
+                                                'Yes', 
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.brown[500]
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                cartItems.removeFromCart(index);
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text( // no button
+                                                'No',
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.brown[500]
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                    );
+                                    // ------- End alert dialog --------
                                   },
                                 )
                               ],

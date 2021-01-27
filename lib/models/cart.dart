@@ -12,8 +12,8 @@ class Cart with ChangeNotifier{
 
   void removeFromCart(int index) {
     print('index in cart : ' + index.toString());
-    print(items.remove(index));
-    items.remove(index);
+    // print(items.removeAt(index));
+    items.removeAt(index);
     notifyListeners();
   }
 
