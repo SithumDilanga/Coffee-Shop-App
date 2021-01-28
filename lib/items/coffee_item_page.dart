@@ -175,6 +175,9 @@ class _CoffeeItemState extends State<CoffeeItem> {
 
                                   // calling add to cart method
                                   cart.addToCart(Item(itemName:itemName, itemPrice: itemPrice, amount: itemCount, tableNo: tableNoController.text));
+                                  
+                                  // add current item price to total
+                                  cart.addPriceToTotal(itemPrice * itemCount);
 
                                   Fluttertoast.showToast(
                                     msg: 'Added to Cart',
