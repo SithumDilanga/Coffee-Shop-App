@@ -64,4 +64,16 @@ class AuthService {
     }
   }
   // ----------- End Sign In with email and Password ---------------
+
+  // -------- Log Out ----------
+  Future LogOut() async {
+    
+    try{
+      return _auth.signOut();
+    } catch(e) {
+      print(e.toString());
+    }
+
+  }
+  // -------- End Log Out ----------
 }

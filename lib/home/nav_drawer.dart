@@ -1,6 +1,11 @@
+import 'package:coffee_shop_app/icons/my_icons.dart';
+import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
+
+  // instance of a AuthService class to acces authentication methods
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +22,14 @@ class NavDrawer extends StatelessWidget {
                 )
               ),
             ),
-            CustomeListTile(Icons.star, 'Rate App', () async =>{
-              //LaunchReview.launch(androidAppId: 'com.motivational.inspirational.daily.quotes')
 
-            }),
-            CustomeListTile(Icons.share, 'Share', ()=>{
+            CustomeListTile(Icons.star_rate, 'Rate App', ()=>{
              /* Share.share(
                 ' Motivational Quotes App : '+  
                 'https://play.google.com/store/apps/details?id=com.motivational.inspirational.daily.quotes'
               )*/
             }),
-            CustomeListTile(Icons.dashboard, 'Other Apps', () {
+            CustomeListTile(Icons.support_agent, 'Contact Us', () {
               //playstore app page
               //StoreRedirect.redirect(androidAppId: 'com.simplevoice.android.voicerecorder');
               String url = 'https://play.google.com/store/apps/developer?id=SD+Live&hl=en';
@@ -38,6 +40,54 @@ class NavDrawer extends StatelessWidget {
               } else {
                 throw 'Could not launch $url';
               }*/
+            }),
+            CustomeListTile(Icons.info, 'About Us', () {
+
+            }),
+            CustomeListTile(Icons.logout, 'Log Out', () {
+
+              // -------- logout alert dialog ---------
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Center(
+                      child: Text('Log Out ?')
+                    ),
+                    actions: <Widget>[
+                      TextButton( // yes button
+                        child: Text(
+                          'Yes', 
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.brown[500]
+                          ),
+                        ),
+                        onPressed: () {
+                                                    
+                          _auth.LogOut(); // calling logout method
+                          Navigator.of(context).pop();
+
+                        },
+                      ),
+                      TextButton(
+                        child: Text( // no button
+                          'No',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.brown[500]
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                }
+              );
+              // -------- End logout alert dialog ---------
             }),
           ],
         ),
@@ -60,23 +110,23 @@ class CustomeListTile extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey))
+          border: Border(bottom: BorderSide(color: Colors.brown))
         ),
         child: InkWell(
-          splashColor: Colors.blueGrey[300],
+          splashColor: Colors.brown[300],
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: <Widget>[
-                Icon(icon, size: 28, color: Colors.blueGrey[700],),
+                Icon(icon, size: 28, color: Colors.brown[700],),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
                   child: Text(
                     text, 
                     style: TextStyle(
                       fontSize: 22.0, 
-                      color: Colors.blueGrey[900], 
-                      shadows: [Shadow(blurRadius: 7.0, color: Colors.blueGrey[200], offset: Offset(1.0, 1.0),)]
+                      color: Colors.brown[900], 
+                      //shadows: [Shadow(blurRadius: 7.0, color: Colors.brown[200], offset: Offset(1.0, 1.0),)]
                     ),
                   ),
                 )

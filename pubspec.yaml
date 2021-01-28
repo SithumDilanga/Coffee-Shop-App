@@ -90,5 +90,6 @@ flutter:
     - family: PlusIcon
       fonts:
         - asset: assets/icons/PlusIcon.ttf
+    
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

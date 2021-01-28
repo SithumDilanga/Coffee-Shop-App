@@ -210,7 +210,69 @@ class _CartPageState extends State<CartPage> {
                             fontWeight: FontWeight.bold
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+
+                          showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return ButtonBarTheme(
+                                data: ButtonBarThemeData(
+                                  alignment: MainAxisAlignment.center
+                                ),
+                                child: AlertDialog(
+                                  title: Center(
+                                      child: Text('Select Payment Method')
+                                  ),
+                                  actions: <Widget>[
+
+                                    Column(
+                                      children: <Widget>[
+                                        RaisedButton( // yes button
+                                          color: Colors.brown, 
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(35)
+                                          ),
+                                          padding: EdgeInsets.only(left: 35, right: 35, top: 10, bottom: 10),
+                                          child: Text(
+                                            'Pay Online', 
+                                            style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.white
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                                                                            
+                                          // pop out from the alert dialog
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    RaisedButton(
+                                      color: Colors.brown,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(35),
+                                      ),
+                                      padding: EdgeInsets.only(left: 35, right: 35, top: 10, bottom: 10),
+                                      child: Text( // no button
+                                        'Pay Cashier',
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                      ]
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                          );
+
+                        },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(35.0)
                         ),
