@@ -66,7 +66,7 @@ class AuthService {
   // ----------- End Sign In with email and Password ---------------
 
   // -------- Log Out ----------
-  Future LogOut() async {
+  Future logOut() async {
     
     try{
       return _auth.signOut();

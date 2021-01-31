@@ -1,4 +1,5 @@
 import 'package:coffee_shop_app/icons/my_icons.dart';
+import 'package:coffee_shop_app/nav_drawer_pages/about_us.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,7 @@ class NavDrawer extends StatelessWidget {
               }*/
             }),
             CustomeListTile(Icons.info, 'About Us', () {
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
             }),
             CustomeListTile(Icons.logout, 'Log Out', () {
 
@@ -52,6 +53,9 @@ class NavDrawer extends StatelessWidget {
                 barrierDismissible: true,
                 builder: (BuildContext context) {
                   return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
                     title: Center(
                       child: Text('Log Out ?')
                     ),
@@ -66,7 +70,7 @@ class NavDrawer extends StatelessWidget {
                         ),
                         onPressed: () {
                                                     
-                          _auth.LogOut(); // calling logout method
+                          _auth.logOut(); // calling logout method
                           Navigator.of(context).pop();
 
                         },

@@ -78,6 +78,9 @@ class _CartPageState extends State<CartPage> {
                                           barrierDismissible: true,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(20))
+                                              ),
                                               title: Center(
                                                 child: Text('Remove from the cart ?')
                                               ),
@@ -221,6 +224,10 @@ class _CartPageState extends State<CartPage> {
                                   alignment: MainAxisAlignment.center
                                 ),
                                 child: AlertDialog(
+                                  actionsPadding: EdgeInsets.only(bottom: 16.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                  ),
                                   title: Center(
                                       child: Text('Select Payment Method')
                                   ),
@@ -233,7 +240,7 @@ class _CartPageState extends State<CartPage> {
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(35)
                                           ),
-                                          padding: EdgeInsets.only(left: 35, right: 35, top: 10, bottom: 10),
+                                          padding: EdgeInsets.only(left: 40, right: 40, top: 10, bottom: 10),
                                           child: Text(
                                             'Pay Online', 
                                             style: TextStyle(
@@ -247,6 +254,7 @@ class _CartPageState extends State<CartPage> {
                                           Navigator.of(context).pop();
                                         },
                                       ),
+                                    SizedBox(height: 8.0),
                                     RaisedButton(
                                       color: Colors.brown,
                                       shape: RoundedRectangleBorder(
