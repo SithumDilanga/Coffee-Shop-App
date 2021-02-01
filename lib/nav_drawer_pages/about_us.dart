@@ -43,6 +43,7 @@ class AboutUs extends StatelessWidget {
                 ),
                 SizedBox(height: 120),
                 Card(
+                  elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8.0, 32.0, 8.0, 32.0),
                     child: Text(

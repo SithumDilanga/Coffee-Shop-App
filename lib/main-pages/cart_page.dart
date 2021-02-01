@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
@@ -103,6 +104,11 @@ class _CartPageState extends State<CartPage> {
                                                     
                                                     // pop out from the alert dialog
                                                     Navigator.of(context).pop();
+
+                                                    Fluttertoast.showToast(
+                                                      msg: 'Removed from the cart',
+                                                      toastLength: Toast.LENGTH_SHORT,
+                                                    );
                                                   },
                                                 ),
                                                 TextButton(

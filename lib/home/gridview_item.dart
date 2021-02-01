@@ -13,7 +13,6 @@ class _TodaySpecialItemState extends State<TodaySpecialItem> {
           elevation: 3.0,
           child: InkWell(
             child: Column(
-              //crossAxisAlignment: CrossAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget> [
                 ClipRRect(

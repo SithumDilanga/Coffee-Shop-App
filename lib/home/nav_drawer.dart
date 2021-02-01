@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:coffee_shop_app/nav_drawer_pages/about_us.dart';
+import 'package:coffee_shop_app/nav_drawer_pages/contact_us.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -31,16 +32,7 @@ class NavDrawer extends StatelessWidget {
               )*/
             }),
             CustomeListTile(Icons.support_agent, 'Contact Us', () {
-              //playstore app page
-              //StoreRedirect.redirect(androidAppId: 'com.simplevoice.android.voicerecorder');
-              String url = 'https://play.google.com/store/apps/developer?id=SD+Live&hl=en';
-              /*if (canLaunch(url) != null){
-                launch(
-                  url
-                ); 
-              } else {
-                throw 'Could not launch $url';
-              }*/
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));
             }),
             CustomeListTile(Icons.info, 'About Us', () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
