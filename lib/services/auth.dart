@@ -1,4 +1,5 @@
 import 'package:coffee_shop_app/models/user.dart';
+import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -6,24 +7,25 @@ class AuthService {
   
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  UserId _userFromFirebaseUser(User user) {
-    return user != null ? UserId(uid: user.uid) : null;
+  UserData _userFromFirebaseUser(User user) {
+    return user != null ? UserData(uid: user.uid) : null;
   }
 
-  Stream<UserId> get user {
+  Stream<UserData> get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
     //this does exactly the same thing from below comment line
     //.map((FirebaseUser user) => _userFromFirebaseUser(user));
   }
 
   // ------- register with email and password ---------
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String name, String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
       User user = result.user;
 
       // TODO: create a new firestore document for the user with uid 
+      await DataBaseService(uid: user.uid).updateUserData(name, email, password);
 
       return _userFromFirebaseUser(user); 
       

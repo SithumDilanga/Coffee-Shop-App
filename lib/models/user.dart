@@ -1,7 +1,10 @@
-class UserId {
+class UserData {
 
   final String uid;
+  final String name;
+  final String email;
+  final String password;
 
-  UserId({this.uid});
+  UserData({this.uid, this.name, this.email, this.password});
 
 }

@@ -6,7 +6,8 @@ class Item with ChangeNotifier {
   double itemPrice;
   int amount;
   var tableNo;
+  String itemDescription;
 
-  Item({this.itemName, this.itemPrice, this.amount, this.tableNo});
+  Item({this.itemName, this.itemPrice, this.amount, this.tableNo, this.itemDescription});
   
 }

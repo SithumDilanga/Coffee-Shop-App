@@ -1,4 +1,5 @@
 import 'package:coffee_shop_app/icons/my_icons.dart';
+import 'package:coffee_shop_app/main-pages/admin-pages/admin_page.dart';
 import 'package:coffee_shop_app/nav_drawer_pages/about_us.dart';
 import 'package:coffee_shop_app/nav_drawer_pages/contact_us.dart';
 import 'package:coffee_shop_app/services/auth.dart';
@@ -25,15 +26,17 @@ class NavDrawer extends StatelessWidget {
               ),
             ),
 
-            CustomeListTile(Icons.star_rate, 'Rate App', ()=>{
-             /* Share.share(
-                ' Motivational Quotes App : '+  
-                'https://play.google.com/store/apps/details?id=com.motivational.inspirational.daily.quotes'
-              )*/
+            // rate app
+            CustomeListTile(Icons.star_rate, 'Rate App', () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AdminPage()));
             }),
+
+            // contact us
             CustomeListTile(Icons.support_agent, 'Contact Us', () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));
             }),
+
+            // about us
             CustomeListTile(Icons.info, 'About Us', () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
             }),

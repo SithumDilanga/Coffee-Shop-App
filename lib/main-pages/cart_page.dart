@@ -211,6 +211,9 @@ class _CartPageState extends State<CartPage> {
                       RaisedButton(
                         padding: EdgeInsets.only(top: 12.0, bottom: 12.0, left: 16.0, right: 16.0),
                         color: Colors.brown,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35.0)
+                        ),
                         child: Text(
                           'Place Order',
                           style: TextStyle(
@@ -287,9 +290,6 @@ class _CartPageState extends State<CartPage> {
                           );
 
                         },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35.0)
-                        ),
                       ),
                     ],
                   ),

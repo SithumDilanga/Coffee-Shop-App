@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/authenticate/login.dart';
 import 'package:coffee_shop_app/common/loading.dart';
+import 'package:coffee_shop_app/home/home.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
   // text fields
+  String name = '';
   String email = '';
   String password = '';
   String errorMsg = '';
@@ -103,6 +105,13 @@ class _SignUpState extends State<SignUp> {
                             borderSide: BorderSide(color: Colors.brown[500])
                           )
                         ),
+                        // validation
+                        validator: (val) => val.length < 6 ? 'Enter Your Name' : null,
+                        onChanged: (val) {
+                          setState(() {
+                            name = val;
+                          });
+                        },
                       ),
                       SizedBox(height: 48.0,),
                       Center(
@@ -123,7 +132,9 @@ class _SignUpState extends State<SignUp> {
                               setState(() => loading = true);
                               
                               // registering a user with email and password
-                              dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                              dynamic result = await _auth.registerWithEmailAndPassword(name, email, password);
+
+                              print('loading variable : ' + loading.toString());
 
                               if(result == null) {
                                 // changing the errorMsg
@@ -133,6 +144,10 @@ class _SignUpState extends State<SignUp> {
                                   // stop showing loading screen
                                   loading = false;
                                 });
+                              } else {
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+
                               }
                             }
                           },

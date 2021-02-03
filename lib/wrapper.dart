@@ -9,7 +9,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // listening to streamProvider
-    final user = Provider.of<UserId>(context);
+    final user = Provider.of<UserData>(context);
     print('User : ' + user.toString());
 
     // return either Home or Authentication page
