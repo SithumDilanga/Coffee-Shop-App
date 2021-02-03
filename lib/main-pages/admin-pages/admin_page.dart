@@ -1,3 +1,4 @@
+import 'package:coffee_shop_app/main-pages/admin-pages/add_item.dart';
 import 'package:flutter/material.dart';
 
 class AdminPage extends StatefulWidget {
@@ -28,7 +29,9 @@ class _AdminPageState extends State<AdminPage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddItem()));
+              },
             ),
           ),
         ],
