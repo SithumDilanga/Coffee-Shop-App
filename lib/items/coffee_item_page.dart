@@ -1,6 +1,6 @@
-import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
+import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,6 +8,11 @@ import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:provider/provider.dart';
 
 class CoffeeItem extends StatefulWidget{
+
+  final Product product;
+
+  CoffeeItem({this.product});
+
   @override
   _CoffeeItemState createState() => _CoffeeItemState();
 }
@@ -27,12 +32,18 @@ class _CoffeeItemState extends State<CoffeeItem> {
 
     // var item = Provider.of<Item>(context);
 
+    // Cart Provider
     var cart = Provider.of<Cart>(context);
 
     return Material(
       child: Stack(
         children: <Widget>[
-          Image.asset('assets/cappuccino.jpg'), // item image
+          Image.network(
+            '${widget.product.imgUrl}',
+            fit: BoxFit.cover,
+            height: 280,
+            width: double.infinity,
+          ),// item image
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -61,18 +72,40 @@ class _CoffeeItemState extends State<CoffeeItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget> [
-                            Text(itemName, style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),),
+                            Text(
+                              '${widget.product.name}', 
+                              style: TextStyle(
+                                fontSize: 24.0, 
+                                fontWeight: FontWeight.w700
+                              ),
+                            ),
 
-                            Text('${itemPrice} LKR',style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700, color: HexColor('#5D2300')),),
+                            Text(
+                              '${widget.product.price} LKR',
+                              style: TextStyle(
+                                fontSize: 24.0, 
+                                fontWeight: FontWeight.w700, 
+                                color: HexColor('#5D2300')
+                              ),
+                            ),
                           ]
                         ),
                       ),
                       //----------- End item title -----------
 
                       //--------- item description ----------
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                        child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                          child: Text(
+                            '${widget.product.desc}', 
+                            style: TextStyle(
+                              fontSize: 14.0, 
+                              color: Colors.grey
+                            ),
+                          ),
+                        ),
                       ),
                       //--------- End item description ----------
                       SizedBox(height: 8.0),
@@ -134,7 +167,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   ),
                                   // validation
                                   validator: (tableNo) {
-                                    errorMsg = tableNo.isEmpty ? 'Enter table No:' : null;
+                                    return errorMsg = tableNo.isEmpty ? 'Enter table No:' : null;
                                     
                                   },
                                   //onChanged: (tableNum) { },
@@ -174,10 +207,18 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   // TODO: check tableNoController data type
 
                                   // calling add to cart method
-                                  cart.addToCart(Item(itemName:itemName, itemPrice: itemPrice, amount: itemCount, tableNo: tableNoController.text));
+                                  cart.addToCart(
+                                    Item(
+                                      itemName:widget.product.name, 
+                                      itemPrice: widget.product.price, 
+                                      itemImage: widget.product.imgUrl,
+                                      amount: itemCount, 
+                                      tableNo: tableNoController.text
+                                    )
+                                  );
                                   
                                   // add current item price to total
-                                  cart.addPriceToTotal(itemPrice * itemCount);
+                                  cart.addPriceToTotal(widget.product.price * itemCount);
 
                                   Fluttertoast.showToast(
                                     msg: 'Added to Cart',

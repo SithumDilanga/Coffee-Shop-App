@@ -20,6 +20,7 @@ class _TodaySpecialGridState extends State<TodaySpecialGrid> {
   @override
   Widget build(BuildContext context) {
 
+    // list of coffee products
     final coffeeProducts = Provider.of<List<Product>>(context, listen: true) ?? [];
 
     return StaggeredGridView.countBuilder(

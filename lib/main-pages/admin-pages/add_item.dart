@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:coffee_shop_app/services/database.dart';
+import 'package:coffee_shop_app/services/storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddItem extends StatefulWidget {
   @override
@@ -14,6 +17,27 @@ class _AddItemState extends State<AddItem> {
   final itemDescController = TextEditingController();
 
   DataBaseService database = DataBaseService();
+  Storage storage = Storage();
+
+  // ------- product image pick -------
+
+  File _image;
+  final picker = ImagePicker();
+
+  Future pickImage() async {
+    
+    PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+    
+    // calling uploadProductImage
+    storage.uploadProductImage(_image);
+
+  }
+
+  // ------- End product image pick ------
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +293,7 @@ class _AddItemState extends State<AddItem> {
                                     ],
                                   ),
                                   onTap: () {
-                                    
+                                    pickImage();
                                   },
                                 )
                               ),
@@ -301,7 +325,7 @@ class _AddItemState extends State<AddItem> {
                               itemNameController.text, 
                               double.parse(itemPriceController.text), 
                               itemDescController.text,
-                              'https://firebasestorage.googleapis.com/v0/b/coffee-shop-app-128bc.appspot.com/o/2a76ed0fc21d315e448420893926b394.jpg?alt=media&token=680de060-47e6-4cc6-b977-3ba1b2a5f910'
+                              storage.imageLink
                             );
 
                           } else if(dropdownValue == 'Snacks') {

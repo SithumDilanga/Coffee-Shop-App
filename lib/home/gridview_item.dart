@@ -24,7 +24,14 @@ class _TodaySpecialItemState extends State<TodaySpecialItem> {
               children: <Widget> [
                 ClipRRect(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0)),
-                  child: Image.asset('assets/login-screen-img.jpg',fit: BoxFit.cover, height: 100, width: double.maxFinite,)
+                  child: Image.network(
+                    '${widget.product.imgUrl}',
+                    fit: BoxFit.cover,
+                    height: 100,
+                    width: double.maxFinite,
+                  )
+                  
+                  //Image.asset('assets/login-screen-img.jpg',fit: BoxFit.cover, height: 100, width: double.maxFinite,)
                 ),
                 SizedBox(height: 8.0),
                 Flexible(
@@ -70,7 +77,7 @@ class _TodaySpecialItemState extends State<TodaySpecialItem> {
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                builder: (context) => CoffeeItem()
+                builder: (context) => CoffeeItem(product: widget.product,)
               ));
             },
           ),
