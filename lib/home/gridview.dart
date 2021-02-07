@@ -1,6 +1,8 @@
 import 'package:coffee_shop_app/home/gridview_item.dart';
+import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class TodaySpecialGrid extends StatefulWidget {
   @override
@@ -8,15 +10,25 @@ class TodaySpecialGrid extends StatefulWidget {
 }
 
 class _TodaySpecialGridState extends State<TodaySpecialGrid> {
+
+  
+
+  // Future _loadMore(BuildContext context, bool streamListenState) {
+
+  // }
+
   @override
   Widget build(BuildContext context) {
+
+    final coffeeProducts = Provider.of<List<Product>>(context, listen: true) ?? [];
+
     return StaggeredGridView.countBuilder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2, 
-      itemCount: 12,
+      itemCount: coffeeProducts.length,
       itemBuilder: (context, index) {
-        return TodaySpecialItem();
+        return TodaySpecialItem(product: coffeeProducts[index]);
       }, 
       staggeredTileBuilder: (index) {
         return StaggeredTile.count(1, index.isEven ? 1.15 : 1.15);

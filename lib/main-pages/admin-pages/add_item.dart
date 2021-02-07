@@ -1,3 +1,4 @@
+import 'package:coffee_shop_app/services/database.dart';
 import 'package:flutter/material.dart';
 
 class AddItem extends StatefulWidget {
@@ -11,6 +12,8 @@ class _AddItemState extends State<AddItem> {
   final itemNameController = TextEditingController();
   final itemPriceController = TextEditingController();
   final itemDescController = TextEditingController();
+
+  DataBaseService database = DataBaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -225,6 +228,55 @@ class _AddItemState extends State<AddItem> {
                           ]
                         ),
                       ),
+                      SizedBox(height: 24.0),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: Row(
+                          children: <Widget> [
+                            Container(
+                              // color: Colors.yellow,
+                              width: 100,
+                              child: Text(
+                                'Image',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Container(
+                                // padding: EdgeInsets.only(right: 64.0,),
+                                height: 40.0,
+                                child: InkWell(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Icon(
+                                          Icons.upload_rounded,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8.0),
+                                      Text(
+                                        'Pick a Image',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    
+                                  },
+                                )
+                              ),
+                            )
+                          ]
+                        ),
+                      ),
                       SizedBox(height: 40.0),
                       RaisedButton(
                         padding: EdgeInsets.only(top: 14.0, bottom: 14.0, left: 72.0, right:72.0),
@@ -240,7 +292,25 @@ class _AddItemState extends State<AddItem> {
                             fontWeight: FontWeight.bold
                           ),
                         ),
-                        onPressed: () {}
+                        onPressed: () {
+
+                          if(dropdownValue == 'Coffee') {
+                            // add data to coffee collection
+                            database.updateProductData(
+                              dropdownValue, 
+                              itemNameController.text, 
+                              double.parse(itemPriceController.text), 
+                              itemDescController.text,
+                              'https://firebasestorage.googleapis.com/v0/b/coffee-shop-app-128bc.appspot.com/o/2a76ed0fc21d315e448420893926b394.jpg?alt=media&token=680de060-47e6-4cc6-b977-3ba1b2a5f910'
+                            );
+
+                          } else if(dropdownValue == 'Snacks') {
+                            // add data to snacks collection
+                          } else {
+                            // add data to desserts collection
+                          }
+
+                        }
                       ),
                     ]
                   ),
