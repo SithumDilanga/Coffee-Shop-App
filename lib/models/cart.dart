@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 class Cart with ChangeNotifier{
 
   List<Item> items = [];
+  List<int> users = [];
   double total = 0;
 
   void addToCart(Item item) {

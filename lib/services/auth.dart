@@ -1,4 +1,4 @@
-import 'package:coffee_shop_app/models/user.dart';
+import 'package:coffee_shop_app/models/uid.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,11 +7,12 @@ class AuthService {
   
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  UserData _userFromFirebaseUser(User user) {
-    return user != null ? UserData(uid: user.uid) : null;
+  // can listen to both  uid and email
+  UID _userFromFirebaseUser(User user) {
+    return user != null ? UID(uid: user.uid) : null;
   }
 
-  Stream<UserData> get user {
+  Stream<UID> get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
     //this does exactly the same thing from below comment line
     //.map((FirebaseUser user) => _userFromFirebaseUser(user));

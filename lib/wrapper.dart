@@ -1,6 +1,6 @@
 import 'package:coffee_shop_app/authenticate/toggle_auth.dart';
 import 'package:coffee_shop_app/home/home.dart';
-import 'package:coffee_shop_app/models/user.dart';
+import 'package:coffee_shop_app/models/uid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +9,8 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // listening to streamProvider
-    final user = Provider.of<UserData>(context);
-    print('User : ' + user.toString());
+    final user = Provider.of<UID>(context);
+    // print('User : ' + user.toString());
 
     // return either Home or Authentication page
     if(user == null) {

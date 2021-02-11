@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_shop_app/common/lock_cart_user.dart';
+import 'package:coffee_shop_app/items/coffee_item_page.dart';
 import 'package:coffee_shop_app/models/cart.dart';
+import 'package:coffee_shop_app/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +19,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
 
-    var cartItems = Provider.of<Cart>(context);
+    // var cartItems = Provider.of<Cart>(context);
     // print(cartItems.items[0].itemName);
     // print(cartItems.items.length);
 
@@ -25,7 +29,7 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: Colors.brown,
       ),
       body: Consumer(
-        builder: (BuildContext context, Cart cart, child){
+        builder: (BuildContext context, Cart cart, _){
         return Column(
           children: <Widget>[
             Expanded(
@@ -33,9 +37,6 @@ class _CartPageState extends State<CartPage> {
               child: ListView.builder(
               itemCount: cart.items.length,
               itemBuilder: (BuildContext context, int index){
-                //print(cart.items[0].itemName);
-                // print('index : ' + index.toString());
-                // print(cart.items.length);
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                   child: Card(
@@ -115,6 +116,14 @@ class _CartPageState extends State<CartPage> {
                                                       msg: 'Removed from the cart',
                                                       toastLength: Toast.LENGTH_SHORT,
                                                     );
+
+                                                    // if cart items are empty that user is no longer an cartUser
+                                                    if(cart.items.length == 0) {
+                                                      DataBaseService().currentCartUsers.doc('ux126').update({'count': FieldValue.increment(-1)});
+
+                                                      LockCartUser.once = false;
+                                                    }
+
                                                   },
                                                 ),
                                                 TextButton(
@@ -294,7 +303,6 @@ class _CartPageState extends State<CartPage> {
                               );
                             }
                           );
-
                         },
                       ),
                     ],

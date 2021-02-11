@@ -3,6 +3,7 @@ import 'package:coffee_shop_app/authenticate/sign_up.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
+import 'package:coffee_shop_app/models/uid.dart';
 import 'package:coffee_shop_app/models/user.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:coffee_shop_app/services/database.dart';
@@ -29,12 +30,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<UserData>.value(
+        StreamProvider<UID>.value(
           value: AuthService().user,
         ),
         StreamProvider<List<Product>>.value(
           value: DataBaseService().products,
-        )
+        ),
+        StreamProvider<List<UserData>>.value(
+          value: DataBaseService().users,
+        ),
       ], 
       child: MaterialApp(
         home: Wrapper(), //SignUp()

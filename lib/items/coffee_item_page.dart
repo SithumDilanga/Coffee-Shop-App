@@ -1,6 +1,8 @@
+import 'package:coffee_shop_app/common/lock_cart_user.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
+import 'package:coffee_shop_app/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -26,6 +28,8 @@ class _CoffeeItemState extends State<CoffeeItem> {
   final tableNoController = TextEditingController();
   
   String errorMsg;
+
+  // static bool once = false;
 
   @override
   Widget build(BuildContext context) { 
@@ -196,6 +200,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                 borderRadius: BorderRadius.circular(35.0)
                               ),
                               onPressed: () {
+
                                 print(tableNoController.text);
                                 if(tableNoController.text == '') {
                                   Fluttertoast.showToast(
@@ -225,7 +230,12 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                     toastLength: Toast.LENGTH_SHORT,
                                   );
 
-                                }                               
+                                  if(LockCartUser.once == false) {
+                                    DataBaseService().currentCartUser();
+                                    LockCartUser.once = true;
+                                  }
+
+                                } 
                               },
                             ),
                             RaisedButton(
