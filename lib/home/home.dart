@@ -1,11 +1,10 @@
+import 'package:coffee_shop_app/common/home_buttons.dart';
 import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/home/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:coffee_shop_app/main-pages/coffee_page.dart';
-import 'package:coffee_shop_app/models/item.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -31,88 +30,34 @@ class Home extends StatelessWidget {
                         'assets/home-img.png'
                       ),
                       SizedBox(height: 32.0),
-                      Padding(    // TODO: Refactor later this code block into a common widget
+                      Padding(    // Coffe Button
                         padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
-                        child: RaisedButton(
-                          color: Colors.brown[200],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
-                             child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  MyIcons.coffeIcon,
-                                  size: 32.0,
-                                  color: HexColor('#5D2300'),
-                                ),
-                                SizedBox(width: 16.0,),
-                                Text('Order Coffee', style: TextStyle(fontSize: 20.0, color: HexColor('#5D2300')),),
-                              ],
-                            ),
-                          ),
-                          onPressed:() {
-                            Navigator.push(context, MaterialPageRoute(
+                        child: HomePageMainButtons(
+                          MyIcons.coffeIcon, 
+                          'Order Coffee', 
+                          () {
+                          Navigator.push(context, MaterialPageRoute(
                               builder: (context) => CoffeePage()
-                            ));
+                          ));
                           }
+                        )
+                      ),
+                      SizedBox(height: 16.0),
+                      Padding(    // Snacks Button
+                        padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
+                        child: HomePageMainButtons(
+                          MyIcons.burgerIcon, 
+                          'Order Snacks', 
+                          () { }
                         ),
                       ),
                       SizedBox(height: 16.0),
-                      Padding(
+                      Padding(      // Desserts Button
                         padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
-                        child: RaisedButton(
-                          color: Colors.brown[200],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
-                             child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  MyIcons.burgerIcon, // TODO: adjust icon weigth and size
-                                  size: 32.0,
-                                  color: HexColor('#5D2300'),
-                                ),
-                                SizedBox(width: 16.0,),
-                                Text('Order Snacks', style: TextStyle(fontSize: 20.0, color: HexColor('#5D2300')),),
-                              ],
-                            ),
-                          ),
-                          onPressed:() {
-                            // var item = context.read<Item>();
-                            // item.add();
-                          }
-                        ),
-                      ),
-                      SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
-                        child: RaisedButton(
-                          color: Colors.brown[200],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
-                             child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  MyIcons.iceCreamIcon,
-                                  size: 32.0,
-                                  color: HexColor('#5D2300'),
-                                ),
-                                SizedBox(width: 16.0,),
-                                Text('Order Desserts', style: TextStyle(fontSize: 20.0, color: HexColor('#5D2300')),),
-                              ],
-                            ),
-                          ),
-                          onPressed:() {}
+                        child: HomePageMainButtons(
+                          MyIcons.iceCreamIcon, 
+                          'Order Desserts', 
+                          () { }
                         ),
                       ),
                       SizedBox(height: 24.0,),
