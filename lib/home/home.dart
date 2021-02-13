@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.transparent,
         key: _scaffoldState,
         drawer: NavDrawer(),
         body: Material(
@@ -36,9 +37,16 @@ class Home extends StatelessWidget {
                           MyIcons.coffeIcon, 
                           'Order Coffee', 
                           () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => CoffeePage()
-                          ));
+
+                            Navigator.of(context).push(_createRoute());
+
+                          /*Navigator.of(context).push(
+                            PageRouteBuilder(pageBuilder: (context, animation, _) {
+                              return CoffeePage();
+                            },
+                            opaque: false
+                            ),
+                          );*/
                           }
                         )
                       ),
@@ -112,4 +120,23 @@ class Home extends StatelessWidget {
         ),
       );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => CoffeePage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(-1.0, 0.0);
+      // var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      // var tween = Tween(begin: begin, end: end);
+      var curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

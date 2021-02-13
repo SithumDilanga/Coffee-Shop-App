@@ -230,11 +230,6 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                     toastLength: Toast.LENGTH_SHORT,
                                   );
 
-                                  if(LockCartUser.once == false) {
-                                    DataBaseService().currentCartUser();
-                                    LockCartUser.once = true;
-                                  }
-
                                 } 
                               },
                             ),

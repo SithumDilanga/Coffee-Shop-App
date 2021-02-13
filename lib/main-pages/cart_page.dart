@@ -293,6 +293,13 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                       ),
                                       onPressed: () {
+
+                                        // lock user as a cart user and add count to currentCartUsers in the database
+                                        if(LockCartUser.once == false) {
+                                          DataBaseService().currentCartUser();
+                                          LockCartUser.once = true;
+                                        }
+
                                         Navigator.of(context).pop();
                                       },
                                     ),

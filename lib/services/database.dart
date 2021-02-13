@@ -107,10 +107,20 @@ class DataBaseService {
 
   // keep how many users using cart realtime
   Future currentCartUser() async {
-
-    // int count = 0;
-
     return await currentCartUsers.doc('ux126').update({'count': FieldValue.increment(1)});
+  }
+
+  // getting currentCartUsers count from the database 
+  Future<int> getCurrentCartUserCount() async {
+
+    int count;
+
+    await currentCartUsers.doc('ux126').get().then((value) {
+      count = value.data()['count'];
+      print('count value ' + count.toString());
+    });
+
+    return count;
   }
 
 }

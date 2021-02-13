@@ -1,23 +1,11 @@
 import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:coffee_shop_app/home/home.dart';
-import 'package:coffee_shop_app/main-pages/coffee_page_content.dart';
 import 'package:flutter/material.dart';
 
-class CoffeePage extends StatefulWidget {
-  @override
-  _CoffeePageState createState() => _CoffeePageState();
-}
-
-class _CoffeePageState extends State<CoffeePage> {
+class CoffeePageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    MaterialApp(
-      home: Scaffold(
-        // backgroundColor: Colors.transparent,//HexColor('#FFFFFF'),
-        body: SingleChildScrollView(
-          //physics: AlwaysScrollableScrollPhysics(),
-          child: Container(
+    return Container(
       //constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -37,7 +25,7 @@ class _CoffeePageState extends State<CoffeePage> {
                   color: Colors.white,
                   onPressed: () {
                     //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(_createRoute());
                   }
                 ),
                 SizedBox(width: 16.0),
@@ -61,31 +49,6 @@ class _CoffeePageState extends State<CoffeePage> {
             SizedBox(height: 50.0),
             TodaySpecialGrid()
           ],
-        ),
-      )
-    ),
-          
-          
-          //CoffeePageContent()
-          
-          /*TweenAnimationBuilder(
-            tween: Tween(begin: 0.0, end: 1.0),
-            duration: Duration(milliseconds: 15000),
-            builder: (context, value, child) {
-              return ShaderMask(
-                blendMode: BlendMode.modulate,
-                shaderCallback: (rect) {
-                  return RadialGradient(
-                    radius: value * 5,
-                    colors: [Colors.white, Colors.white, Colors.transparent, Colors.transparent],
-                    stops: [0.0, 0.55, 0.6, 1.0],
-                    center: FractionalOffset(0.5, 0.5),
-                  ).createShader(rect);
-                },
-                child: CoffeePageContent(),
-              );
-            },
-          )*/
         ),
       )
     );
