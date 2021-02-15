@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/main-pages/admin-pages/add_item.dart';
 import 'package:coffee_shop_app/models/cart.dart';
-import 'package:coffee_shop_app/models/item.dart';
-import 'package:coffee_shop_app/models/user.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +18,9 @@ class _AdminPageState extends State<AdminPage> {
   // print(auth.currentUser.email);
 
   DataBaseService database = DataBaseService();
+
+  // cart user's ordered items
+  var allItems = [];
 
   // fetching current user's name from the database
   Future<String> _getCurrentUserName() async{
@@ -62,25 +63,26 @@ class _AdminPageState extends State<AdminPage> {
       ),
       body: FutureBuilder(
         // Waits for multiple futures to complete and collects their results.
-        future: Future.wait([_getCurrentUserName(), database.getCurrentCartUserCount()]),//_getCurrentUserName(),
+        future: Future.wait([
+          _getCurrentUserName(), 
+          database.getCurrentCartUserCount(), 
+          database.getCurrentCartUsers(auth.currentUser.uid)]
+        ),//_getCurrentUserName(),
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           return Consumer(
           builder: (BuildContext context, Cart cart, _) {
 
-            if(cart.items.isNotEmpty) {
+            // check whether is there any active current cart users
+            if(database.currentCartUsersCount != 0) { // cart.items.isNotEmpty
 
               if(snapshot.hasData) {
+        
+                // getting all cart user's ordered items
+                allItems = snapshot.data[2];
 
               return ListView.builder(
                 itemCount: snapshot.data[1], // current cart user's count
                 itemBuilder: (BuildContext context, int index) {
-                
-                  print('data 1 ' + snapshot.data[1].toString());
-                  // if(index == 0) {
-                  //   print('first time');
-                  // } else {
-                  //   cart.items[index].tableNo == cart.items[index - 1].tableNo ? print('gg')     : print('nope');
-                  // }
                   
                   // check whether there is a cart user
                     return Padding(
@@ -94,6 +96,7 @@ class _AdminPageState extends State<AdminPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
+                                  //TODO: retrive data from cart user's(snapshot.data[2])
                                   Text(
                                     '${snapshot.data[0].toString()}', // current cart username
                                     style: TextStyle(
@@ -115,7 +118,44 @@ class _AdminPageState extends State<AdminPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    for(var item in cart.items) 
+
+                                    // Text('snapshot data 2 test ${snapshot.data[2][0]['itemName']}'),
+
+                                    // print('yeah ' + item['itemName'].toString());
+                                    for(var item in allItems) 
+                                    Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('${item['itemName']}'),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.close,
+                                                  size: 12,
+                                                ),
+                                                Text('${item['itemAmount']}'),
+                                              ],
+                                            ),
+                                            SizedBox(width: 32.0),
+                                            Text('${item['itemName'] * item['itemAmount']}'),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text('Total'),
+                                            SizedBox(width: 32.0),
+                                            Text('${cart.total}'),
+                                          ],
+                                        ),
+                                      ),
+
+                                    /*for(var item in cart.items) 
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -146,7 +186,7 @@ class _AdminPageState extends State<AdminPage> {
                                             Text('${cart.total}'),
                                           ],
                                         ),
-                                      ),
+                                      ),*/
                                   ]
                                 ),
                               ),
@@ -205,9 +245,12 @@ class _AdminPageState extends State<AdminPage> {
                 },
             );
               } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(32.0),
-                      child: CupertinoActivityIndicator(),
+                    return Align(
+                      alignment: Alignment(0.1, -0.6),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 0),
+                        child: CupertinoActivityIndicator(),
+                      ),
                     );
                   }
 

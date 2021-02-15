@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_shop_app/models/cart_user.dart';
+import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:coffee_shop_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class DataBaseService {
 
@@ -10,14 +13,19 @@ class DataBaseService {
 
   DataBaseService({this.uid});
 
+  int currentCartUsersCount;
+
   // users collection reference
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
   // products collection reference
   final CollectionReference productsCollection = FirebaseFirestore.instance.collection('products');
 
+  // current cart users count
+  final CollectionReference currentCartUsersCountRef = FirebaseFirestore.instance.collection('currentCartUsersCount');
+
   // current cart users
-  final CollectionReference currentCartUsers = FirebaseFirestore.instance.collection('currentCartUsers');
+  final CollectionReference currentCartUsersRef = FirebaseFirestore.instance.collection('currentCartUsers');
 
 
   // creating new document for a new user and updating existing userdata
@@ -107,20 +115,60 @@ class DataBaseService {
 
   // keep how many users using cart realtime
   Future currentCartUser() async {
-    return await currentCartUsers.doc('ux126').update({'count': FieldValue.increment(1)});
+    return await currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(1)});
   }
 
   // getting currentCartUsers count from the database 
   Future<int> getCurrentCartUserCount() async {
 
-    int count;
-
-    await currentCartUsers.doc('ux126').get().then((value) {
-      count = value.data()['count'];
-      print('count value ' + count.toString());
+    await currentCartUsersCountRef.doc('ux126').get().then((value) {
+      // count = value.data()['count'];
+      currentCartUsersCount = value.data()['count'];
+      print('count value ' + currentCartUsersCount.toString());
     });
 
-    return count;
+    return currentCartUsersCount;
+  }
+
+  // add current user as a cart user to the database
+  Future setCurrentCartUser(String name, List<Item> items, double total) async {
+
+    // adding ordered items to the items collection
+    for(Item item in items) {
+
+      await FirebaseFirestore.instance.collection('currentCartUsers').doc(uid).collection('items').add({
+        'itemName': item.itemName,
+        'itemPrice': item.itemPrice,
+        'itemAmount': item.amount,
+        'tableNo':item.tableNo,
+      });
+
+    }
+
+    return await currentCartUsersRef.doc(uid).set({
+      'uid': uid,
+      'name': name,
+      'total': total,
+    });
+
+  }
+
+  Future getCurrentCartUsers(String uid) async {
+
+    var itemName = [];
+    var cartUsersData = [];
+
+    await FirebaseFirestore.instance.collection('currentCartUsers').doc(uid).collection('items').get().then((QuerySnapshot querySnapshot) => {
+      querySnapshot.docs.forEach((doc) {
+        itemName.add(doc['itemName']);
+        cartUsersData.add(doc);
+        print(cartUsersData);
+        // return itemName = doc['itemName'];
+      })
+    });
+
+    return cartUsersData;
+
   }
 
 }
