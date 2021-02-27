@@ -1,7 +1,9 @@
+import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/models/uid.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class AuthService {
   

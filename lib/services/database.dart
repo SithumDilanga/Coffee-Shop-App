@@ -10,6 +10,7 @@ class DataBaseService {
 
   // userid of the user
   final String uid;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   DataBaseService({this.uid});
 
@@ -153,22 +154,56 @@ class DataBaseService {
 
   }
 
-  Future getCurrentCartUsers(String uid) async {
+  Future getCurrentCartUsersItems(List<String> cartUserids) async {
 
-    var itemName = [];
-    var cartUsersData = [];
+    // cart items according to each user
+    var items = []; 
 
-    await FirebaseFirestore.instance.collection('currentCartUsers').doc(uid).collection('items').get().then((QuerySnapshot querySnapshot) => {
+    for(String uid in cartUserids) {
+
+      // each user's cart items
+      var itemsData = [];
+
+      await FirebaseFirestore.instance.collection('currentCartUsers').doc(uid).collection('items').get().then((QuerySnapshot querySnapshot) => {
       querySnapshot.docs.forEach((doc) {
-        itemName.add(doc['itemName']);
-        cartUsersData.add(doc);
-        print(cartUsersData);
-        // return itemName = doc['itemName'];
+        itemsData.add(doc);
+        print(itemsData);
+        print('bla bla ' + uid.toString());
       })
     });
 
-    return cartUsersData;
+    items.add(itemsData);
 
+    }
+
+    print('pak oi ' + items.toString());
+    print('hutta ' + items[0][0]['itemName']);
+
+    // await FirebaseFirestore.instance.collection('currentCartUsers').doc(cartUserids[0]).collection('items').get().then((QuerySnapshot querySnapshot) => {
+    //   querySnapshot.docs.forEach((doc) {
+    //     cartUsersData.add(doc);
+    //     print(cartUsersData);
+    //     // return itemName = doc['itemName'];
+    //   })
+    // }); 
+    return items;
+  }
+
+
+  // cart users list from snapshot
+  List<CartUser> _cartUsersFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return CartUser(
+        name: doc.data()['name'] ?? '',
+        uid: doc.data()['uid'] ?? '',
+        total: doc.data()['total'] ?? '',
+      );
+    }).toList();
+  }
+
+  // get cart users stream
+  Stream<List<CartUser>> get cartUsers {
+    return currentCartUsersRef.snapshots().map(_cartUsersFromSnapshot);
   }
 
 }

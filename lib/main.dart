@@ -1,6 +1,7 @@
 import 'package:coffee_shop_app/authenticate/login.dart';
 import 'package:coffee_shop_app/authenticate/sign_up.dart';
 import 'package:coffee_shop_app/models/cart.dart';
+import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:coffee_shop_app/models/uid.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider<List<UserData>>.value(
           value: DataBaseService().users,
+        ),
+        StreamProvider<List<CartUser>>.value(
+          value: DataBaseService().cartUsers,
         ),
       ], 
       child: MaterialApp(
