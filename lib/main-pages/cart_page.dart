@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/common/lock_cart_user.dart';
+import 'package:coffee_shop_app/common/on_the_way_card.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +14,10 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+
+  bool itemOntheWay = false;
+
+  OnTheWayCard onTheWayCard = OnTheWayCard();
 
   //var cartItem = Cart();
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -87,7 +92,13 @@ class _CartPageState extends State<CartPage> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Text(cart.items[index].itemName, style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),),
+                                      Text(
+                                        cart.items[index].itemName, 
+                                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                                      ),
+
+                                      // on the way card 
+                                      itemOntheWay ? onTheWayCard.onTheWayCard : SizedBox(width: 0.0), 
                                       IconButton(
                                         icon: Icon(Icons.close), 
                                         onPressed: (){
@@ -207,6 +218,7 @@ class _CartPageState extends State<CartPage> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
@@ -286,6 +298,10 @@ class _CartPageState extends State<CartPage> {
                                             ),
                                           ),
                                           onPressed: () {
+
+                                            setState(() {
+                                              itemOntheWay = true;
+                                            });
                                                                                               
                                             // pop out from the alert dialog
                                             Navigator.of(context).pop();
@@ -306,6 +322,10 @@ class _CartPageState extends State<CartPage> {
                                           ),
                                         ),
                                         onPressed: () {
+
+                                          setState(() {
+                                            itemOntheWay = true;
+                                          });
 
                                           // lock user as a cart user and add count to currentCartUsers in the database
                                           if(LockCartUser.once == false) {
