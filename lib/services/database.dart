@@ -189,6 +189,22 @@ class DataBaseService {
     return items;
   }
 
+  // deleting cart user
+  Future removeCurrentCartUsersItem(String cartUserid) async {
+
+      // deleting items subcollecion
+      await currentCartUsersRef.doc(cartUserid).collection('items').get().then((value) {
+        value.docs.forEach((element) {
+          currentCartUsersRef.doc(cartUserid).collection('items').doc(element.id).delete();
+        });
+      });
+
+      // deleting the relevant doc of currentCartUsers collection 
+      await currentCartUsersRef.doc(cartUserid).delete();
+
+
+  }
+
 
   // cart users list from snapshot
   List<CartUser> _cartUsersFromSnapshot(QuerySnapshot snapshot) {

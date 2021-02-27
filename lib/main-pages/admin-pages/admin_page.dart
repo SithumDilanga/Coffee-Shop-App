@@ -238,7 +238,11 @@ class _AdminPageState extends State<AdminPage> {
                                             fontWeight: FontWeight.bold
                                           ),
                                         ),
-                                        onPressed: () {}
+                                        onPressed: () {
+
+                                          database.removeCurrentCartUsersItem(allCartUserids[index]);
+
+                                        }
                                       ),
                                     ),
                                     ButtonTheme(
@@ -274,7 +278,7 @@ class _AdminPageState extends State<AdminPage> {
             );
               } else {
                     return Align(
-                      alignment: Alignment(0.1, -0.6),
+                      alignment: Alignment(0.0, -0.5),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 0),
                         child: CupertinoActivityIndicator(),
