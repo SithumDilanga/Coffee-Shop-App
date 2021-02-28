@@ -111,6 +111,9 @@ class _CartPageState extends State<CartPage> {
                                               barrierDismissible: true,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                                  ),
                                                   title: const Text(
                                                     'You cannot cancel the order while item is on the way'
                                                   ),
