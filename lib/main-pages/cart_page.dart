@@ -15,7 +15,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
 
-  bool itemOntheWay = false;
+  static bool itemOntheWay = false;
 
   OnTheWayCard onTheWayCard = OnTheWayCard();
 
@@ -99,11 +99,43 @@ class _CartPageState extends State<CartPage> {
 
                                       // on the way card 
                                       itemOntheWay ? onTheWayCard.onTheWayCard : SizedBox(width: 0.0), 
+
                                       IconButton(
                                         icon: Icon(Icons.close), 
                                         onPressed: (){
 
-                                          // ------- alert dialog --------
+                                          // if item is on the way user cannot cancel the order
+                                          if(itemOntheWay){
+                                            showDialog(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                    'You cannot cancel the order while item is on the way'
+                                                  ),
+                                                  actions: [
+
+                                                    TextButton( // yes button
+                                                      child: Text(
+                                                        'Cancel', 
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          color: Colors.brown[500]
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      }
+                                                    )
+
+                                                  ],
+                                                );
+                                              }
+                                            );
+                                          } else {
+
+                                            // ------- alert dialog --------
                                           showDialog(
                                             context: context,
                                             barrierDismissible: true,
@@ -142,10 +174,21 @@ class _CartPageState extends State<CartPage> {
 
                                                       // if cart items are empty that user is no longer an cartUser
                                                       if(cart.items.length == 0) {
+
                                                         // TODO: send this function to database service
-                                                        DataBaseService().currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(-1)});
+                                                        // DataBaseService().currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(-1)});
 
                                                         LockCartUser.once = false;
+
+                                                        // setting itemOnTheWay to false
+                                                        if(itemOntheWay) {
+                                                          
+                                                          setState(() {
+                                                            itemOntheWay = false;
+                                                          });
+
+                                                        }
+                                                        
                                                       }
 
                                                     },
@@ -167,6 +210,8 @@ class _CartPageState extends State<CartPage> {
                                             }
                                           );
                                           // ------- End alert dialog --------
+
+                                          }
                                         },
                                       )
                                     ],
@@ -327,9 +372,10 @@ class _CartPageState extends State<CartPage> {
                                             itemOntheWay = true;
                                           });
 
-                                          // lock user as a cart user and add count to currentCartUsers in the database
+                                          // lock user as a cart user and make current user into a cart user
                                           if(LockCartUser.once == false) {
-                                            DataBaseService().currentCartUser();
+
+                                            //DataBaseService().currentCartUser();
 
                                             DataBaseService(uid: auth.currentUser.uid).setCurrentCartUser(
                                               snapshot.data, 

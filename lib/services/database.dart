@@ -114,6 +114,7 @@ class DataBaseService {
     
   }
 
+  // TODO: remove this function
   // keep how many users using cart realtime
   Future currentCartUser() async {
     return await currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(1)});
