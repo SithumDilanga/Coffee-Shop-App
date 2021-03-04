@@ -79,10 +79,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       //SizedBox(height: 8.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: TodaySpecialGrid(),
-                      )
+                      TodaySpecialGrid()
                     ],
                   ),
                   // Burger icon and cart icon
@@ -132,7 +129,7 @@ Route _createRoute() {
       // var tween = Tween(begin: begin, end: end);
       var curve = Curves.ease;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      var offsetAnimation = animation.drive(tween);
+      //var offsetAnimation = animation.drive(tween);
       return SlideTransition(
         position: animation.drive(tween),
         child: child,

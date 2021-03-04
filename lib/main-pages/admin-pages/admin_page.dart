@@ -244,6 +244,9 @@ class _AdminPageState extends State<AdminPage> {
 
                                           database.removeCurrentCartUsersItem(allCartUserids[index]);
 
+                                          //TODO: new feature here
+                                          FirebaseFirestore.instance.collection('users').doc(allCartUserids[index]).update({'isCartUser': false});
+
                                         }
                                       ),
                                     ),

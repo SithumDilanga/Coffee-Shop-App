@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/common/lock_cart_user.dart';
 import 'package:coffee_shop_app/common/on_the_way_card.dart';
 import 'package:coffee_shop_app/models/cart.dart';
+import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,9 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   static bool itemOntheWay = false;
+  bool isCartUser = false;
 
-  OnTheWayCard onTheWayCard = OnTheWayCard();
+  StatusCard statusCard = StatusCard();
 
   //var cartItem = Cart();
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -33,9 +35,17 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
 
-    // var cartItems = Provider.of<Cart>(context);
-    // print(cartItems.items[0].itemName);
-    // print(cartItems.items.length);
+    //TODO: find a way to fix this
+    // FirebaseFirestore.instance.collection('users').doc(auth.currentUser.uid).get().then((value) {
+
+    //   setState(() {
+    //     isCartUser = value.data()['isCartUser'];
+    //   });
+
+
+    //   // print('pak oi ' + value.data()['isCartUser'].toString());
+
+    // }).catchError((e) => 'Error fecthing data $e');
 
     return Scaffold(
       appBar: AppBar(
@@ -47,13 +57,22 @@ class _CartPageState extends State<CartPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Consumer(
           builder: (BuildContext context, Cart cart, _){
-          return Column(
+
+            // if(!isCartUser && itemOntheWay) {
+            //   // cart.items.removeRange(0, cart.items.length - 1);
+            //   print('hutta');
+            //   return Text('order finished!');
+              
+            // } 
+
+            return Column(
             children: <Widget>[
               Expanded(
                 flex: 9,
                 child: ListView.builder(
                 itemCount: cart.items.length,
                 itemBuilder: (BuildContext context, int index){
+
                   return Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                     child: Card(
@@ -98,7 +117,7 @@ class _CartPageState extends State<CartPage> {
                                       ),
 
                                       // on the way card 
-                                      itemOntheWay ? onTheWayCard.onTheWayCard : SizedBox(width: 0.0), 
+                                      itemOntheWay ? statusCard.onTheWayCard : SizedBox(width: 0.0), 
 
                                       IconButton(
                                         icon: Icon(Icons.close), 
@@ -383,8 +402,11 @@ class _CartPageState extends State<CartPage> {
                                             DataBaseService(uid: auth.currentUser.uid).setCurrentCartUser(
                                               snapshot.data, 
                                               cart.items, 
-                                              cart.total
+                                              cart.total,
                                             );
+
+                                            //TODO: new feature here
+                                            FirebaseFirestore.instance.collection('users').doc(auth.currentUser.uid).update({'isCartUser': true});
                                             
                                             LockCartUser.once = true;
                                           }

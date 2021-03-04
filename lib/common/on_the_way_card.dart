@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OnTheWayCard {
+class StatusCard {
 
   final onTheWayCard  = Card(
     color: Colors.green[700],

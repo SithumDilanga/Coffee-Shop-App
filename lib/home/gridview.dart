@@ -24,6 +24,7 @@ class _TodaySpecialGridState extends State<TodaySpecialGrid> {
     final coffeeProducts = Provider.of<List<Product>>(context, listen: true) ?? [];
 
     return StaggeredGridView.countBuilder(
+      padding: EdgeInsets.all(8.0),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2, 

@@ -30,11 +30,12 @@ class DataBaseService {
 
 
   // creating new document for a new user and updating existing userdata
-  Future updateUserData(String name, String email, String password) async {
+  Future updateUserData(String name, String email, String password, bool isCartUser) async {
     return await usersCollection.doc(uid).set({
       'name': name,
       'email': email,
       'password': password,
+      'isCartUser': isCartUser
     });
   }
 
@@ -133,7 +134,7 @@ class DataBaseService {
   }
 
   // add current user as a cart user to the database
-  Future setCurrentCartUser(String name, List<Item> items, double total) async {
+  Future setCurrentCartUser(String name, List<Item> items, double total,) async {
 
     // adding ordered items to the items collection
     for(Item item in items) {
@@ -151,6 +152,7 @@ class DataBaseService {
       'uid': uid,
       'name': name,
       'total': total,
+      // 'isItemOnTheWay': isItemOnTheWay
     });
 
   }
@@ -176,9 +178,6 @@ class DataBaseService {
     items.add(itemsData);
 
     }
-
-    print('pak oi ' + items.toString());
-    print('hutta ' + items[0][0]['itemName']);
 
     // await FirebaseFirestore.instance.collection('currentCartUsers').doc(cartUserids[0]).collection('items').get().then((QuerySnapshot querySnapshot) => {
     //   querySnapshot.docs.forEach((doc) {
@@ -214,6 +213,7 @@ class DataBaseService {
         name: doc.data()['name'] ?? '',
         uid: doc.data()['uid'] ?? '',
         total: doc.data()['total'] ?? '',
+        // isItemOnTheWay: doc.data()['isItemOnTheWay'] ?? ''
       );
     }).toList();
   }
