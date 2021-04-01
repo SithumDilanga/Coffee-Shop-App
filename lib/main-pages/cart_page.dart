@@ -80,7 +80,7 @@ class _CartPageState extends State<CartPage> {
 
     if(!isCartUser) {
       setState(() {
-        IsAddedToCart.isAddedToCart = true; 
+        // IsAddedToCart.isAddedToCart = true; 
       });
     }
 
