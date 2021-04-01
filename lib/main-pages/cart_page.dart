@@ -1,4 +1,7 @@
+import 'dart:isolate';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_shop_app/common/isAddedToCart.dart';
 import 'package:coffee_shop_app/common/lock_cart_user.dart';
 import 'package:coffee_shop_app/common/on_the_way_card.dart';
 import 'package:coffee_shop_app/models/cart.dart';
@@ -9,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
+import '../services/database.dart';
+
 class CartPage extends StatefulWidget {
   @override
   _CartPageState createState() => _CartPageState();
@@ -17,6 +22,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   static bool itemOntheWay = false;
+  // static bool isAddedToCart = false;
   bool isCartUser = false;
 
   StatusCard statusCard = StatusCard();
@@ -30,6 +36,27 @@ class _CartPageState extends State<CartPage> {
   Future<String> _getCurrentUserName() async{
     return await database.getCurrentUserName(auth.currentUser.uid);
     //print('usernam ' + currentUserName.toString());
+  }
+
+  void checkIsOrderCompleted(final cartUsers) {
+
+    cartUsers.forEach((element) {
+      print('shit ' + element.uid.toString());
+      if(element.name == _getCurrentUserName()) {
+        print('satisfied! ' + element.uid.toString());
+          setState(() {
+            isCartUser = true;
+          });
+          // cart.items.removeRange(0, cart.items.length - 1);
+          // return Center(child: Text('order finished!'));
+        } else {
+          print('else ' + element.uid.toString());
+          setState(() {
+            isCartUser = false;
+          });
+        }
+      });
+
   }
 
   @override
@@ -46,6 +73,16 @@ class _CartPageState extends State<CartPage> {
     //   // print('pak oi ' + value.data()['isCartUser'].toString());
 
     // }).catchError((e) => 'Error fecthing data $e');
+
+    final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
+
+    checkIsOrderCompleted(cartUsers);
+
+    if(!isCartUser) {
+      setState(() {
+        IsAddedToCart.isAddedToCart = true; 
+      });
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -64,6 +101,23 @@ class _CartPageState extends State<CartPage> {
             //   return Text('order finished!');
               
             // } 
+
+            // TODO: solve the order completed functionality
+            // if(isCartUser) {
+            //   // cart.items.removeRange(0, cart.items.length - 1);
+            //   print('hutta');
+            //   return Text('order finished!');
+              
+            // } 
+            
+
+            if(!isCartUser && !IsAddedToCart.isAddedToCart) {
+              return Center(
+                child: Text(
+                  'No orders!'
+                ),
+              );
+            } else {
 
             return Column(
             children: <Widget>[
@@ -431,6 +485,7 @@ class _CartPageState extends State<CartPage> {
             )
             ],
           );
+            } //else block
         }
         );
         },

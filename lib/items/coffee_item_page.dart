@@ -1,4 +1,6 @@
+import 'package:coffee_shop_app/common/isAddedToCart.dart';
 import 'package:coffee_shop_app/common/lock_cart_user.dart';
+import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
@@ -231,6 +233,12 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   );
 
                                 } 
+                                
+                                setState(() {
+                                  IsAddedToCart.isAddedToCart = true;
+                                });
+
+
                               },
                             ),
                             RaisedButton(
