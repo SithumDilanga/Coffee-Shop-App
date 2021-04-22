@@ -236,6 +236,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                 
                                 setState(() {
                                   IsAddedToCart.isAddedToCart = true;
+                                  print('da hell ' + IsAddedToCart.isAddedToCart.toString());
                                 });
 
 

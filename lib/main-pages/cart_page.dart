@@ -38,25 +38,45 @@ class _CartPageState extends State<CartPage> {
     //print('usernam ' + currentUserName.toString());
   }
 
-  void checkIsOrderCompleted(final cartUsers) {
+  bool checkIsOrderCompleted(final cartUsers) { 
+
+    bool checkIsOrderCompleted = false;
 
     cartUsers.forEach((element) {
       print('shit ' + element.uid.toString());
-      if(element.name == _getCurrentUserName()) {
+      print('currentUserName ' + auth.currentUser.uid.toString());
+      print('element.uid ' + element.uid.toString());
+
+      if(element.uid == auth.currentUser.uid) {
         print('satisfied! ' + element.uid.toString());
-          setState(() {
-            isCartUser = true;
-          });
+          // setState(() {
+          //   isCartUser = true;
+          // });
+          checkIsOrderCompleted = true;
           // cart.items.removeRange(0, cart.items.length - 1);
           // return Center(child: Text('order finished!'));
         } else {
           print('else ' + element.uid.toString());
-          setState(() {
-            isCartUser = false;
-          });
+          checkIsOrderCompleted = false;
+          // setState(() {
+          //   isCartUser = false;
+          // });
         }
       });
 
+      return checkIsOrderCompleted;
+  }
+
+  bool isOrderCompleted(final cartUsers) {
+    if(!checkIsOrderCompleted(cartUsers) && IsAddedToCart.isAddedToCart && itemOntheWay) {
+      print('wtf! ');
+      // setState(() {
+      //   itemOntheWay = false;
+      // });
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -76,14 +96,6 @@ class _CartPageState extends State<CartPage> {
 
     final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
 
-    checkIsOrderCompleted(cartUsers);
-
-    if(!isCartUser) {
-      setState(() {
-        // IsAddedToCart.isAddedToCart = true; 
-      });
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -95,29 +107,19 @@ class _CartPageState extends State<CartPage> {
           return Consumer(
           builder: (BuildContext context, Cart cart, _){
 
-            // if(!isCartUser && itemOntheWay) {
-            //   // cart.items.removeRange(0, cart.items.length - 1);
-            //   print('hutta');
-            //   return Text('order finished!');
-              
-            // } 
-
-            // TODO: solve the order completed functionality
-            // if(isCartUser) {
-            //   // cart.items.removeRange(0, cart.items.length - 1);
-            //   print('hutta');
-            //   return Text('order finished!');
-              
-            // } 
-            
-
-            if(!isCartUser && !IsAddedToCart.isAddedToCart) {
+            if(!checkIsOrderCompleted(cartUsers) && !IsAddedToCart.isAddedToCart) {
+              print('checkIsOrderCompleted ' + checkIsOrderCompleted(cartUsers).toString());
+              print('isAddedToCart ' + IsAddedToCart.isAddedToCart.toString());
               return Center(
                 child: Text(
                   'No orders!'
                 ),
               );
-            } else {
+            } else if(!checkIsOrderCompleted(cartUsers) && IsAddedToCart.isAddedToCart || checkIsOrderCompleted(cartUsers) && IsAddedToCart.isAddedToCart) {
+
+              print('checkIsOrderCompleted ' + checkIsOrderCompleted(cartUsers).toString());
+              print('isAddedToCart ' + IsAddedToCart.isAddedToCart.toString());
+              print('itemOntheWay ' + itemOntheWay.toString());
 
             return Column(
             children: <Widget>[
@@ -171,7 +173,12 @@ class _CartPageState extends State<CartPage> {
                                       ),
 
                                       // on the way card 
-                                      itemOntheWay ? statusCard.onTheWayCard : SizedBox(width: 0.0), 
+                                      // itemOntheWay ? statusCard.onTheWayCard : SizedBox(width: 0.0), 
+
+                                      (!isOrderCompleted(cartUsers)) && itemOntheWay ? statusCard.onTheWayCard : SizedBox(width: 0.0,),
+
+                                      //TODO: find a proper logic
+                                      (isOrderCompleted(cartUsers)) && itemOntheWay ? statusCard.orderFinishedCard : SizedBox(width: 0.0,),
 
                                       IconButton(
                                         icon: Icon(Icons.close), 
