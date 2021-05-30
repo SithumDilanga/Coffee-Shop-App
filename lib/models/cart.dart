@@ -5,7 +5,7 @@ class Cart with ChangeNotifier{
 
   List<Item> items = [];
   List<int> users = [];
-  double total = 0;
+  int total = 0;
 
   void addToCart(Item item) {
     items.add(item);
@@ -18,12 +18,12 @@ class Cart with ChangeNotifier{
     notifyListeners();
   }
 
-  void addPriceToTotal(double price) {
+  void addPriceToTotal(int price) {
     total += price;
     notifyListeners();
   }
 
-  void deductPriceFromTotal(double price) {
+  void deductPriceFromTotal(int price) {
     total -= price;
     notifyListeners();
   }

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class Item with ChangeNotifier {
 
   String itemName;
-  double itemPrice;
+  int itemPrice;
   int amount;
   var tableNo;
   String itemDescription;

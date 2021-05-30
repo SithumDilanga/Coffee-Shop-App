@@ -40,7 +40,7 @@ class DataBaseService {
   }
 
   // creating new document for products and updating existing products
-  Future updateProductData(String category, String name, double price, String desc, String imgUrl) async {
+  Future updateProductData(String category, String name, int price, String desc, String imgUrl) async {
 
     print(category);
 
@@ -134,7 +134,7 @@ class DataBaseService {
   }
 
   // add current user as a cart user to the database
-  Future setCurrentCartUser(String name, List<Item> items, double total,) async {
+  Future setCurrentCartUser(String name, List<Item> items, int total,) async {
 
     // adding ordered items to the items collection
     for(Item item in items) {
@@ -223,4 +223,36 @@ class DataBaseService {
     return currentCartUsersRef.snapshots().map(_cartUsersFromSnapshot);
   }
 
+  // --------- new from here --------------
+
+  Future<bool> getIsCartUser(String userId) async{
+
+   bool checkValue;
+
+   await usersCollection.doc(userId).get().
+      then(
+        (value) {
+          print('new here ' + value.data()['isCartUser'].toString());
+
+          if(value.data()['isCartUser'] == true) {
+
+            print('new value ' + checkValue.toString());
+            return checkValue = true;
+            // return true;
+
+          } else {
+
+            print('new value ' + checkValue.toString());
+            return checkValue = false;
+            // return false;
+
+          }
+
+        } 
+      );   
+
+      return checkValue;
+  }
+
 }
+

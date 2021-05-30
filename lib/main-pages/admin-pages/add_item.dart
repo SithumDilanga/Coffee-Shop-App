@@ -323,7 +323,7 @@ class _AddItemState extends State<AddItem> {
                             database.updateProductData(
                               dropdownValue, 
                               itemNameController.text, 
-                              double.parse(itemPriceController.text), 
+                              int.parse(itemPriceController.text), 
                               itemDescController.text,
                               storage.imageLink
                             );

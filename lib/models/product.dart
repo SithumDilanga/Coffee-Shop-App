@@ -2,7 +2,7 @@ class Product {
 
   String category;
   String name;
-  double price;
+  int price;
   String desc;
   String imgUrl;
   String timeStamp;

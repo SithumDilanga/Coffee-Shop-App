@@ -24,7 +24,7 @@ class CoffeeItem extends StatefulWidget{
 class _CoffeeItemState extends State<CoffeeItem> {
 
   String itemName = 'Cappuccino';
-  double itemPrice = 240.00;
+  int itemPrice = 240;
   int tableNo;
   int itemCount = 1;
   final tableNoController = TextEditingController();

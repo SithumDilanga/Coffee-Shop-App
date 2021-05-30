@@ -5,7 +5,7 @@ class CartUser {
   final String uid;
   final String name;
   final List<Item> items;
-  final double total;
+  final int total;
   final bool isItemOnTheWay;
 
   CartUser({this.uid, this.name, this.items, this.total, this.isItemOnTheWay});

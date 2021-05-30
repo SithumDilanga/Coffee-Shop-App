@@ -1,5 +1,4 @@
 import 'dart:isolate';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/common/isAddedToCart.dart';
 import 'package:coffee_shop_app/common/lock_cart_user.dart';
@@ -21,6 +20,9 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
 
+  // ------ new here -------
+  // bool checkValue = false;
+
   static bool itemOntheWay = false;
   // static bool isAddedToCart = false;
   bool isCartUser = false;
@@ -38,63 +40,14 @@ class _CartPageState extends State<CartPage> {
     //print('usernam ' + currentUserName.toString());
   }
 
-  bool checkIsOrderCompleted(final cartUsers) { 
-
-    bool checkIsOrderCompleted = false;
-
-    cartUsers.forEach((element) {
-      print('shit ' + element.uid.toString());
-      print('currentUserName ' + auth.currentUser.uid.toString());
-      print('element.uid ' + element.uid.toString());
-
-      if(element.uid == auth.currentUser.uid) {
-        print('satisfied! ' + element.uid.toString());
-          // setState(() {
-          //   isCartUser = true;
-          // });
-          checkIsOrderCompleted = true;
-          // cart.items.removeRange(0, cart.items.length - 1);
-          // return Center(child: Text('order finished!'));
-        } else {
-          print('else ' + element.uid.toString());
-          checkIsOrderCompleted = false;
-          // setState(() {
-          //   isCartUser = false;
-          // });
-        }
-      });
-
-      return checkIsOrderCompleted;
-  }
-
-  bool isOrderCompleted(final cartUsers) {
-    if(!checkIsOrderCompleted(cartUsers) && IsAddedToCart.isAddedToCart && itemOntheWay) {
-      print('wtf! ');
-      // setState(() {
-      //   itemOntheWay = false;
-      // });
-      return true;
-    } else {
-      return false;
-    }
+  Future<bool> _getIsCartUser() async{
+    return await database.getIsCartUser(auth.currentUser.uid);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
 
-    //TODO: find a way to fix this
-    // FirebaseFirestore.instance.collection('users').doc(auth.currentUser.uid).get().then((value) {
-
-    //   setState(() {
-    //     isCartUser = value.data()['isCartUser'];
-    //   });
-
-
-    //   // print('pak oi ' + value.data()['isCartUser'].toString());
-
-    // }).catchError((e) => 'Error fecthing data $e');
-
-    final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
+    // final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
 
     return Scaffold(
       appBar: AppBar(
@@ -102,25 +55,13 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: Colors.brown,
       ),
       body: FutureBuilder(
-        future: _getCurrentUserName(),
+        future: Future.wait([
+          _getCurrentUserName(),
+          _getIsCartUser()
+        ]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Consumer(
           builder: (BuildContext context, Cart cart, _){
-
-            if(!checkIsOrderCompleted(cartUsers) && !IsAddedToCart.isAddedToCart) {
-              print('checkIsOrderCompleted ' + checkIsOrderCompleted(cartUsers).toString());
-              print('isAddedToCart ' + IsAddedToCart.isAddedToCart.toString());
-              return Center(
-                child: Text(
-                  'No orders!'
-                ),
-              );
-            } else if(!checkIsOrderCompleted(cartUsers) && IsAddedToCart.isAddedToCart || checkIsOrderCompleted(cartUsers) && IsAddedToCart.isAddedToCart) {
-
-              print('checkIsOrderCompleted ' + checkIsOrderCompleted(cartUsers).toString());
-              print('isAddedToCart ' + IsAddedToCart.isAddedToCart.toString());
-              print('itemOntheWay ' + itemOntheWay.toString());
-
             return Column(
             children: <Widget>[
               Expanded(
@@ -172,20 +113,12 @@ class _CartPageState extends State<CartPage> {
                                         style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
                                       ),
 
-                                      // on the way card 
-                                      // itemOntheWay ? statusCard.onTheWayCard : SizedBox(width: 0.0), 
-
-                                      (!isOrderCompleted(cartUsers)) && itemOntheWay ? statusCard.onTheWayCard : SizedBox(width: 0.0,),
-
-                                      //TODO: find a proper logic
-                                      (isOrderCompleted(cartUsers)) && itemOntheWay ? statusCard.orderFinishedCard : SizedBox(width: 0.0,),
-
                                       IconButton(
                                         icon: Icon(Icons.close), 
                                         onPressed: (){
 
                                           // if item is on the way user cannot cancel the order
-                                          if(itemOntheWay){
+                                          if(snapshot.data[1]){ //itemOntheWay
                                             showDialog(
                                               context: context,
                                               barrierDismissible: true,
@@ -264,13 +197,13 @@ class _CartPageState extends State<CartPage> {
                                                         LockCartUser.once = false;
 
                                                         // setting itemOnTheWay to false
-                                                        if(itemOntheWay) {
+                                                        // if(itemOntheWay) {
                                                           
-                                                          setState(() {
-                                                            itemOntheWay = false;
-                                                          });
+                                                        //   setState(() {
+                                                        //     itemOntheWay = false;
+                                                        //   });
 
-                                                        }
+                                                        // }
                                                         
                                                       }
 
@@ -314,12 +247,22 @@ class _CartPageState extends State<CartPage> {
                                 SizedBox(height: 16.0),
 
                                 // ---------- item price -----------
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 16.0),
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Text('${cart.items[index].itemPrice} LKR', style: TextStyle(fontSize: 18.0, color: Colors.brown[500],  fontWeight: FontWeight.w700),)
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Text('${cart.items[index].itemPrice} LKR', style: TextStyle(fontSize: 18.0, color: Colors.brown[500],  fontWeight: FontWeight.w700),)
+                                      ),
+                                    ),
+                                    if(LockCartUser.once)
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 8.0),
+                                          child: snapshot.data[1] ? statusCard.onTheWayCard : SizedBox(),
+                                        ),
+                                  ],
                                 ),
                                 // ---------- End item price -----------
                               ],
@@ -427,9 +370,9 @@ class _CartPageState extends State<CartPage> {
                                           ),
                                           onPressed: () {
 
-                                            setState(() {
-                                              itemOntheWay = true;
-                                            });
+                                            // setState(() {
+                                            //   itemOntheWay = true;
+                                            // });
                                                                                               
                                             // pop out from the alert dialog
                                             Navigator.of(context).pop();
@@ -451,9 +394,9 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                         onPressed: () {
 
-                                          setState(() {
-                                            itemOntheWay = true;
-                                          });
+                                          // setState(() {
+                                          //   itemOntheWay = true;
+                                          // });
 
                                           // lock user as a cart user and make current user into a cart user
                                           if(LockCartUser.once == false) {
@@ -461,7 +404,7 @@ class _CartPageState extends State<CartPage> {
                                             //DataBaseService().currentCartUser();
 
                                             DataBaseService(uid: auth.currentUser.uid).setCurrentCartUser(
-                                              snapshot.data, 
+                                              snapshot.data[0], 
                                               cart.items, 
                                               cart.total,
                                             );
@@ -471,6 +414,14 @@ class _CartPageState extends State<CartPage> {
                                             
                                             LockCartUser.once = true;
                                           }
+
+                                          // ---- new here ------
+                                          // dynamic val = database.getIsCartUser(auth.currentUser.uid);
+                                          setState(() {
+                                            
+                                          });
+                                          print('bitch ' + snapshot.data[1].toString());
+                                          print('bitch 2' + snapshot.data[0]);
 
                                           Navigator.of(context).pop();
                                         },
@@ -492,7 +443,6 @@ class _CartPageState extends State<CartPage> {
             )
             ],
           );
-            } //else block
         }
         );
         },
