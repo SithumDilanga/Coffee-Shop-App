@@ -62,6 +62,20 @@ class _CartPageState extends State<CartPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Consumer(
           builder: (BuildContext context, Cart cart, _){
+
+            if(cart.items.isEmpty) {
+              return Center(
+                child: Text(
+                  'No Orders Yet!',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[600]
+                  ),
+                ),
+              );
+            }
+
             return Column(
             children: <Widget>[
               Expanded(
