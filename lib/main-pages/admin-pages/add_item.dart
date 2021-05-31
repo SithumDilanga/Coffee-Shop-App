@@ -330,8 +330,23 @@ class _AddItemState extends State<AddItem> {
 
                           } else if(dropdownValue == 'Snacks') {
                             // add data to snacks collection
+                            database.setSnackProducts(
+                              dropdownValue, 
+                              itemNameController.text, 
+                              int.parse(itemPriceController.text), 
+                              itemDescController.text,
+                              storage.imageLink
+                            );
+
                           } else {
                             // add data to desserts collection
+                            database.setDessertProducts(
+                              dropdownValue, 
+                              itemNameController.text, 
+                              int.parse(itemPriceController.text), 
+                              itemDescController.text,
+                              storage.imageLink
+                            );
                           }
 
                         }

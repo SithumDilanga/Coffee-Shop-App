@@ -1,7 +1,10 @@
 import 'package:coffee_shop_app/authenticate/login.dart';
 import 'package:coffee_shop_app/authenticate/sign_up.dart';
+import 'package:coffee_shop_app/models/SnackProduct.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
+import 'package:coffee_shop_app/models/coffeeProduct.dart';
+import 'package:coffee_shop_app/models/dessertProduct.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:coffee_shop_app/models/uid.dart';
@@ -34,8 +37,14 @@ class MyApp extends StatelessWidget {
         StreamProvider<UID>.value(
           value: AuthService().user,
         ),
-        StreamProvider<List<Product>>.value(
+        StreamProvider<List<CoffeeProduct>>.value(
           value: DataBaseService().products,
+        ),
+        StreamProvider<List<SnackProduct>>.value(
+          value: DataBaseService().snackProducts,
+        ),
+        StreamProvider<List<DessertProduct>>.value(
+          value: DataBaseService().dessertProducts,
         ),
         StreamProvider<List<UserData>>.value(
           value: DataBaseService().users,

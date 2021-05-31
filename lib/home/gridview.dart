@@ -5,6 +5,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class TodaySpecialGrid extends StatefulWidget {
+
+  final productCategory;
+
+  TodaySpecialGrid({this.productCategory});
+
   @override
   _TodaySpecialGridState createState() => _TodaySpecialGridState();
 }
@@ -20,17 +25,17 @@ class _TodaySpecialGridState extends State<TodaySpecialGrid> {
   @override
   Widget build(BuildContext context) {
 
-    // list of coffee products
-    final coffeeProducts = Provider.of<List<Product>>(context, listen: true) ?? [];
+    // // list of coffee products
+    // final coffeeProducts = Provider.of<List<Product>>(context, listen: true) ?? [];
 
     return StaggeredGridView.countBuilder(
       padding: EdgeInsets.all(8.0),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2, 
-      itemCount: coffeeProducts.length,
+      itemCount: widget.productCategory.length, //coffeeProducts.length
       itemBuilder: (context, index) {
-        return TodaySpecialItem(product: coffeeProducts[index]);
+        return TodaySpecialItem(product: widget.productCategory[index]); //coffeeProducts[index]
       }, 
       staggeredTileBuilder: (index) {
         return StaggeredTile.count(1, index.isEven ? 1.15 : 1.15);

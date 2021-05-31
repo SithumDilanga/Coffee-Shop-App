@@ -4,6 +4,10 @@ import 'package:coffee_shop_app/home/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:coffee_shop_app/main-pages/coffee_page.dart';
+import 'package:coffee_shop_app/main-pages/dessert_page.dart';
+import 'package:coffee_shop_app/main-pages/snacks_page.dart';
+import 'package:coffee_shop_app/models/coffeeProduct.dart';
+import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +18,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // list of coffee products
+    final coffeeProducts = Provider.of<List<CoffeeProduct>>(context, listen: true) ?? [];
+
     return Scaffold(
       // backgroundColor: Colors.transparent,
         key: _scaffoldState,
@@ -38,7 +46,7 @@ class Home extends StatelessWidget {
                           'Order Coffee', 
                           () {
 
-                            Navigator.of(context).push(_createRoute());
+                            Navigator.of(context).push(_createRoute(CoffeePage()));
 
                           /*Navigator.of(context).push(
                             PageRouteBuilder(pageBuilder: (context, animation, _) {
@@ -56,7 +64,9 @@ class Home extends StatelessWidget {
                         child: HomePageMainButtons(
                           MyIcons.burgerIcon, 
                           'Order Snacks', 
-                          () { }
+                          () {
+                            Navigator.of(context).push(_createRoute(SnacksPage()));
+                          }
                         ),
                       ),
                       SizedBox(height: 16.0),
@@ -65,7 +75,9 @@ class Home extends StatelessWidget {
                         child: HomePageMainButtons(
                           MyIcons.iceCreamIcon, 
                           'Order Desserts', 
-                          () { }
+                          () {
+                            Navigator.of(context).push(_createRoute(DessertsPage()));
+                          }
                         ),
                       ),
                       SizedBox(height: 24.0,),
@@ -79,7 +91,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       //SizedBox(height: 8.0),
-                      TodaySpecialGrid()
+                      TodaySpecialGrid(productCategory: coffeeProducts,)
                     ],
                   ),
                   // Burger icon and cart icon
@@ -119,9 +131,9 @@ class Home extends StatelessWidget {
   }
 }
 
-Route _createRoute() {
+Route _createRoute(var routePage) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => CoffeePage(),
+    pageBuilder: (context, animation, secondaryAnimation) => routePage,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(-1.0, 0.0);
       // var begin = Offset(0.0, 1.0);

@@ -1,22 +1,23 @@
 import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:coffee_shop_app/home/home.dart';
 import 'package:coffee_shop_app/main-pages/coffee_page_content.dart';
-import 'package:coffee_shop_app/models/coffeeProduct.dart';
+import 'package:coffee_shop_app/models/SnackProduct.dart';
+import 'package:coffee_shop_app/models/dessertProduct.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CoffeePage extends StatefulWidget {
+class DessertsPage extends StatefulWidget {
   @override
-  _CoffeePageState createState() => _CoffeePageState();
+  DessertsPageState createState() => DessertsPageState();
 }
 
-class _CoffeePageState extends State<CoffeePage> {
+class DessertsPageState extends State<DessertsPage> {
   @override
   Widget build(BuildContext context) {
 
     // list of coffee products
-    final coffeeProducts = Provider.of<List<CoffeeProduct>>(context, listen: true) ?? [];
+    final dessertProducts = Provider.of<List<DessertProduct>>(context, listen: true) ?? [];
 
     return 
     MaterialApp(
@@ -49,7 +50,7 @@ class _CoffeePageState extends State<CoffeePage> {
                 ),
                 SizedBox(width: 16.0),
                 Text(
-                  'Coffee',
+                  'Desserts',
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,
@@ -66,33 +67,11 @@ class _CoffeePageState extends State<CoffeePage> {
               ]
             ),
             SizedBox(height: 50.0),
-            TodaySpecialGrid(productCategory: coffeeProducts,)
+            TodaySpecialGrid(productCategory: dessertProducts,)
           ],
         ),
       )
-    ),
-          
-          
-          //CoffeePageContent()
-          
-          /*TweenAnimationBuilder(
-            tween: Tween(begin: 0.0, end: 1.0),
-            duration: Duration(milliseconds: 15000),
-            builder: (context, value, child) {
-              return ShaderMask(
-                blendMode: BlendMode.modulate,
-                shaderCallback: (rect) {
-                  return RadialGradient(
-                    radius: value * 5,
-                    colors: [Colors.white, Colors.white, Colors.transparent, Colors.transparent],
-                    stops: [0.0, 0.55, 0.6, 1.0],
-                    center: FractionalOffset(0.5, 0.5),
-                  ).createShader(rect);
-                },
-                child: CoffeePageContent(),
-              );
-            },
-          )*/
+    ),        
         ),
       )
     );

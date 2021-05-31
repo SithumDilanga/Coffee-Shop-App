@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_shop_app/models/SnackProduct.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
+import 'package:coffee_shop_app/models/coffeeProduct.dart';
+import 'package:coffee_shop_app/models/dessertProduct.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:coffee_shop_app/models/user.dart';
@@ -21,6 +24,12 @@ class DataBaseService {
 
   // products collection reference
   final CollectionReference productsCollection = FirebaseFirestore.instance.collection('products');
+
+  // snacks collection reference
+  final CollectionReference snacksCollection = FirebaseFirestore.instance.collection('snacks');
+
+  // dessert collection reference
+  final CollectionReference dessertsCollection = FirebaseFirestore.instance.collection('desserts');
 
   // current cart users count
   final CollectionReference currentCartUsersCountRef = FirebaseFirestore.instance.collection('currentCartUsersCount');
@@ -56,9 +65,9 @@ class DataBaseService {
   }
 
   // product list from snapshot
-  List<Product> _productListFromSnapshot(QuerySnapshot snapshot) {
+  List<CoffeeProduct> _productListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return Product(
+      return CoffeeProduct(
         category: doc.data()['category'] ?? '',
         name: doc.data()['name'] ?? '',
         price: doc.data()['price'] ?? '',
@@ -69,9 +78,88 @@ class DataBaseService {
   }
 
   // get products stream
-  Stream<List<Product>> get products {
+  Stream<List<CoffeeProduct>> get products {
     return productsCollection.snapshots().map(_productListFromSnapshot);
   }
+
+  // ------------ Snack products -------------
+
+  Future setSnackProducts(String category, String name, int price, String desc, String imgUrl) async {
+
+    print(category);
+
+    return await snacksCollection.doc(uid).set({
+      'category': category,
+      'name': name,
+      'price': price,
+      'desc': desc,
+      'imgUrl': imgUrl,
+      'timeStamp': FieldValue.serverTimestamp(),
+    });
+
+  }
+
+  // product list from snapshot
+  List<SnackProduct> _snacktListFromSnapshot(QuerySnapshot snapshot) {
+    
+    return snapshot.docs.map((doc) {
+      print('snap ' + doc.data().toString());
+      return SnackProduct(
+        category: doc.data()['category'] ?? '',
+        name: doc.data()['name'] ?? '',
+        price: doc.data()['price'] ?? '',
+        desc: doc.data()['desc'] ?? '',
+        imgUrl: doc.data()['imgUrl'] ?? '',
+      );
+    }).toList();
+  }
+
+  // get products stream
+  Stream<List<SnackProduct>> get snackProducts {
+    return snacksCollection.snapshots().map(_snacktListFromSnapshot);
+  }
+
+  // ------------ End Snack products -------------
+
+
+  // ------------ Dessert products -------------
+
+    Future setDessertProducts(String category, String name, int price, String desc, String imgUrl) async {
+
+    print(category);
+
+    return await dessertsCollection.doc(uid).set({
+      'category': category,
+      'name': name,
+      'price': price,
+      'desc': desc,
+      'imgUrl': imgUrl,
+      'timeStamp': FieldValue.serverTimestamp(),
+    });
+
+  }
+
+  // product list from snapshot
+  List<DessertProduct> _dessertListFromSnapshot(QuerySnapshot snapshot) {
+    
+    return snapshot.docs.map((doc) {
+      print('snap ' + doc.data().toString());
+      return DessertProduct(
+        category: doc.data()['category'] ?? '',
+        name: doc.data()['name'] ?? '',
+        price: doc.data()['price'] ?? '',
+        desc: doc.data()['desc'] ?? '',
+        imgUrl: doc.data()['imgUrl'] ?? '',
+      );
+    }).toList();
+  }
+
+  // get products stream
+  Stream<List<DessertProduct>> get dessertProducts {
+    return dessertsCollection.snapshots().map(_dessertListFromSnapshot);
+  }
+
+  // ------------ End Dessert products -------------
 
   // users list from snapshot
   List<UserData> _usersListFromSnapshot(QuerySnapshot snapshot) {
@@ -223,8 +311,7 @@ class DataBaseService {
     return currentCartUsersRef.snapshots().map(_cartUsersFromSnapshot);
   }
 
-  // --------- new from here --------------
-
+  // checking isCartUser
   Future<bool> getIsCartUser(String userId) async{
 
    bool checkValue;
