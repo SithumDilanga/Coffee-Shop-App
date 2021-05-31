@@ -78,15 +78,18 @@ class _CoffeeItemState extends State<CoffeeItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget> [
-                            Text(
-                              '${widget.product.name}', 
-                              style: TextStyle(
-                                fontSize: 24.0, 
-                                fontWeight: FontWeight.w700
+                            Expanded(
+                              // flex: 4,
+                              child: Text(   // product name
+                                '${widget.product.name}', 
+                                style: TextStyle(
+                                  fontSize: 24.0, 
+                                  fontWeight: FontWeight.w700
+                                ),
                               ),
                             ),
 
-                            Text(
+                            Text(  // Price
                               '${widget.product.price} LKR',
                               style: TextStyle(
                                 fontSize: 24.0, 

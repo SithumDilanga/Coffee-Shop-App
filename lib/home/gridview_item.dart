@@ -33,10 +33,10 @@ class _TodaySpecialItemState extends State<TodaySpecialItem> {
                   
                   //Image.asset('assets/login-screen-img.jpg',fit: BoxFit.cover, height: 100, width: double.maxFinite,)
                 ),
-                SizedBox(height: 8.0),
+                SizedBox(height: 4.0),
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.only(left: 8.0,),
                     child: Text(
                       '${widget.product.name}', 
                       style: TextStyle(
@@ -52,6 +52,8 @@ class _TodaySpecialItemState extends State<TodaySpecialItem> {
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Text(
                       '${widget.product.desc}', 
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 12.0, 
                         color: Colors.grey
