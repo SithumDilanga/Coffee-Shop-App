@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/common/on_the_way_card.dart';
 import 'package:coffee_shop_app/main-pages/admin-pages/add_item.dart';
+import 'package:coffee_shop_app/main-pages/admin-pages/today_specials.dart';
 import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
@@ -73,6 +74,23 @@ class _AdminPageState extends State<AdminPage> {
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.brown,
+                side: BorderSide(
+                  color: Colors.white
+                )
+              ),
+              child: Text(
+                'Today Specials'
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddToTodaySpecials()));
+              }, 
+            ),
+          )
         ],
       ),
       body: FutureBuilder(

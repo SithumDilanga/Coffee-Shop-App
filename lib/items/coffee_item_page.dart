@@ -135,7 +135,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Row(
                             children: <Widget>[
-                              IconButton(
+                              IconButton( //TODO: item no should not minus
                                 icon: Icon(MyIcons.minuIcon, size: 34.0, color: Colors.brown,),
                                 onPressed: () {
                                   //item.decrease();
