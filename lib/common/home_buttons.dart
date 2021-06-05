@@ -15,6 +15,7 @@ class HomePageMainButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
+      elevation: 2.5,
       color: Colors.brown[200],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10)

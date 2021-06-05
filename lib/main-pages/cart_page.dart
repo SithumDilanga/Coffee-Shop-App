@@ -65,13 +65,23 @@ class _CartPageState extends State<CartPage> {
 
             if(cart.items.isEmpty) {
               return Center(
-                child: Text(
-                  'No Orders Yet!',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[600]
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'No Orders Yet!',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[600]
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    Image.asset(
+                      'assets/cart-bg-img.png',
+                      height: 80,
+                    )
+                  ],
                 ),
               );
             }

@@ -14,6 +14,17 @@ class NavDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/home-bg4.jpg'),
+              colorFilter: ColorFilter.mode(
+                Colors.white10,
+                BlendMode.modulate
+              ),
+              fit: BoxFit.cover,
+              // alignment: Alignment.topLeft,
+            )
+          ),
         child: ListView(
           children: <Widget>[
             DrawerHeader(
@@ -28,17 +39,17 @@ class NavDrawer extends StatelessWidget {
 
             // rate app
             CustomeListTile(Icons.star_rate, 'Rate App', () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AdminPage()));
+              Navigator.of(context).push(_createRoute(AdminPage()));
             }),
 
             // contact us
             CustomeListTile(Icons.support_agent, 'Contact Us', () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUs()));
+              Navigator.of(context).push(_createRoute(ContactUs()));
             }),
 
             // about us
             CustomeListTile(Icons.info, 'About Us', () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
+              Navigator.of(context).push(_createRoute(AboutUs()));
             }),
             CustomeListTile(Icons.logout, 'Log Out', () {
 
@@ -137,4 +148,23 @@ class CustomeListTile extends StatelessWidget {
       ),
     );
   }
+}
+
+Route _createRoute(var routePage) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => routePage,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(-1.0, 0.0);
+      // var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      // var tween = Tween(begin: begin, end: end);
+      var curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      //var offsetAnimation = animation.drive(tween);
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
