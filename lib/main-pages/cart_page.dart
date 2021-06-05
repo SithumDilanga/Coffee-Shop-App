@@ -47,7 +47,15 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {    
 
-    // final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
+    final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
+
+    cartUsers.forEach(
+      (element) {
+        if(element.uid == auth.currentUser.uid) {
+          print('over here ' + element.uid.toString());
+        }
+      }
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -444,8 +452,6 @@ class _CartPageState extends State<CartPage> {
                                           setState(() {
                                             
                                           });
-                                          print('bitch ' + snapshot.data[1].toString());
-                                          print('bitch 2' + snapshot.data[0]);
 
                                           Navigator.of(context).pop();
                                         },

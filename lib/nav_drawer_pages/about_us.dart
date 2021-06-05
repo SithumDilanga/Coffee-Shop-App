@@ -7,6 +7,14 @@ class AboutUs extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Image.asset('assets/latte.jpg'),
+          Positioned(
+            bottom: 2,
+            left: 40,
+            child: Image.asset(
+              'assets/about-us-bg.png',
+              height: 300,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 40.0, 8.0, 8.0),
             child: Column(
@@ -58,7 +66,7 @@ class AboutUs extends StatelessWidget {
                 )
               ]
             ),
-          )
+          ),
         ],
       ),
     );

@@ -167,7 +167,8 @@ class _AdminPageState extends State<AdminPage> {
                                                 ],
                                               ),
                                               SizedBox(width: 32.0),
-                                              Text('${item['itemName'] * item['itemAmount']}'),
+                                              Text('${item['itemPrice']}'),
+                                              // Text('${item['itemName'] * item['itemAmount']}'),
                                               //item['itemName'] * item['itemAmount']
                                             ],
                                           ),
@@ -298,14 +299,24 @@ class _AdminPageState extends State<AdminPage> {
 
               print(cart.items);
                 return Center(
-                  child: Text(
-                    'No Orders Yet!',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[600]
+                  child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'No Orders Yet!',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[600]
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 8.0),
+                    Image.asset(
+                      'assets/admin-no-orders.png',
+                      height: 180,
+                    )
+                  ],
+                ),
                 );
 
             }            
