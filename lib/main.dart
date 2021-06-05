@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           value: AuthService().user,
         ),
         StreamProvider<List<CoffeeProduct>>.value(
-          value: DataBaseService().products,
+          value: DataBaseService().coffeProducts,
         ),
         StreamProvider<List<SnackProduct>>.value(
           value: DataBaseService().snackProducts,

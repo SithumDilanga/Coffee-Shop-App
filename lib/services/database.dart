@@ -22,8 +22,9 @@ class DataBaseService {
   // users collection reference
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
-  // products collection reference
-  final CollectionReference productsCollection = FirebaseFirestore.instance.collection('products');
+  //TODO: change collection name into coffee
+  // coffee collection reference
+  final CollectionReference coffeeCollection = FirebaseFirestore.instance.collection('products');
 
   // snacks collection reference
   final CollectionReference snacksCollection = FirebaseFirestore.instance.collection('snacks');
@@ -48,12 +49,14 @@ class DataBaseService {
     });
   }
 
-  // creating new document for products and updating existing products
-  Future updateProductData(String category, String name, int price, String desc, String imgUrl) async {
+  // ------------ coffee products -------------
+
+  // creating new document for coffee products and updating existing products
+  Future setCoffeeProducts(String category, String name, int price, String desc, String imgUrl) async {
 
     print(category);
 
-    return await productsCollection.doc(uid).set({
+    return await coffeeCollection.doc(uid).set({
       'category': category,
       'name': name,
       'price': price,
@@ -64,7 +67,7 @@ class DataBaseService {
 
   }
 
-  // product list from snapshot
+  // coffe product list from snapshot
   List<CoffeeProduct> _productListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return CoffeeProduct(
@@ -77,10 +80,13 @@ class DataBaseService {
     }).toList();
   }
 
-  // get products stream
-  Stream<List<CoffeeProduct>> get products {
-    return productsCollection.snapshots().map(_productListFromSnapshot);
+  // get coffee products stream
+  Stream<List<CoffeeProduct>> get coffeProducts {
+    return coffeeCollection.snapshots().map(_productListFromSnapshot);
   }
+
+  // ------------ End coffee products -------------
+
 
   // ------------ Snack products -------------
 

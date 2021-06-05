@@ -320,7 +320,7 @@ class _AddItemState extends State<AddItem> {
 
                           if(dropdownValue == 'Coffee') {
                             // add data to coffee collection
-                            database.updateProductData(
+                            database.setCoffeeProducts(
                               dropdownValue, 
                               itemNameController.text, 
                               int.parse(itemPriceController.text), 

@@ -49,14 +49,6 @@ class _CartPageState extends State<CartPage> {
 
     final cartUsers  = Provider.of<List<CartUser>>(context, listen: true) ?? [];
 
-    cartUsers.forEach(
-      (element) {
-        if(element.uid == auth.currentUser.uid) {
-          print('over here ' + element.uid.toString());
-        }
-      }
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -101,6 +93,22 @@ class _CartPageState extends State<CartPage> {
                 child: ListView.builder(
                 itemCount: cart.items.length,
                 itemBuilder: (BuildContext context, int index){
+                  
+                  //TODO: fix feature here
+                  // cartUsers.forEach(
+                  //   (element) {
+                  //     if(element.uid != auth.currentUser.uid && IsAddedToCart.isAddedToCart) {
+                  //       print('over here ' + element.uid.toString());
+
+                  //       // deduct current item price from the total
+                  //       cart.deductPriceFromTotal(cart.items[index].itemPrice * cart.items[index].amount);
+
+                  //       // remove the cart
+                  //       cart.removeFromCart(index);
+
+                  //     }
+                  //   }
+                  // );
 
                   return Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
@@ -452,6 +460,11 @@ class _CartPageState extends State<CartPage> {
                                           setState(() {
                                             
                                           });
+
+                                          Fluttertoast.showToast(
+                                            msg: 'Your order is on the way!',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                          );
 
                                           Navigator.of(context).pop();
                                         },
