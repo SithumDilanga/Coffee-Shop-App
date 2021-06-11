@@ -21,7 +21,6 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   // ------ new here -------
-  // bool checkValue = false;
 
   static bool itemOntheWay = false;
   // static bool isAddedToCart = false;
