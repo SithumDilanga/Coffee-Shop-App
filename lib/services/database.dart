@@ -205,7 +205,7 @@ class DataBaseService {
 
   // get products stream
   Stream<List<TodaySpecialstProduct>> get todaySpecialsProducts {
-    return dessertsCollection.snapshots().map(_todaySpecialsListFromSnapshot);
+    return todaySpecialsCollection.snapshots().map(_todaySpecialsListFromSnapshot);
   }
 
   // deleting product

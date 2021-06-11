@@ -1,4 +1,5 @@
 import 'package:coffee_shop_app/models/SnackProduct.dart';
+import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
 import 'package:coffee_shop_app/models/coffeeProduct.dart';
 import 'package:coffee_shop_app/models/dessertProduct.dart';
 import 'package:coffee_shop_app/services/database.dart';
@@ -25,6 +26,9 @@ class _AddToTodaySpecialsState extends State<AddToTodaySpecials> {
 
     // list of coffee products
     final snackProducts = Provider.of<List<SnackProduct>>(context, listen: true) ?? [];
+
+    // list of today special products
+    final todaySpecialProducts  = Provider.of<List<TodaySpecialstProduct>>(context, listen: true) ?? [];
 
     // counting all the available products
     int totalItemsCount = coffeeProducts.length + dessertProducts.length + snackProducts.length;
@@ -69,6 +73,7 @@ class _AddToTodaySpecialsState extends State<AddToTodaySpecials> {
                     return TodaySpecialCardView(  // cardview
                       productItem: coffeeProducts[index],
                     );
+
                   },
                 ),
               ),
@@ -119,21 +124,32 @@ class TodaySpecialCardView extends StatefulWidget {
 
   final productItem;
 
-  const TodaySpecialCardView({ Key key, this.productItem }) : super(key: key);
+  const TodaySpecialCardView({ Key key, this.productItem,}) : super(key: key);
 
   @override
   _TodaySpecialCardViewState createState() => _TodaySpecialCardViewState();
 }
 
 class _TodaySpecialCardViewState extends State<TodaySpecialCardView> {
-
+    
   // for checkbox
   bool isChecked = false;
-
+  
   DataBaseService database = DataBaseService();
 
   @override
   Widget build(BuildContext context) {
+
+    // added product names list
+    List<String> nameList = [];
+
+    // list of today special products
+    final todaySpecialProducts  = Provider.of<List<TodaySpecialstProduct>>(context, listen: true) ?? [];
+
+    // loop throught every todaySpecialProducts elements
+    todaySpecialProducts.forEach((element) {
+      nameList.add(element.name); // adding to the local list
+    });
 
     // for checkbox
     Color getColor(Set<MaterialState> states) {
@@ -201,13 +217,12 @@ class _TodaySpecialCardViewState extends State<TodaySpecialCardView> {
           Expanded(
             flex: 1,
             child: Checkbox(
-              value: isChecked, 
+              value: nameList.contains(widget.productItem.name) ? true : false, //widget.productItem.name == todaySpecialProducts[0].name ? true : false, //isChecked, 
               checkColor: Colors.white,
               fillColor: MaterialStateProperty.resolveWith(getColor),
               onChanged: (bool value) {
 
                 if(value == true) {
-                  print('true');
 
                   database.setTodaySpecialsProducts(
                     widget.productItem.category, 
@@ -218,7 +233,6 @@ class _TodaySpecialCardViewState extends State<TodaySpecialCardView> {
                   );
 
                 } else {
-                  print('false');
 
                   database.removeTodaySpecialProduct(widget.productItem.name);
 
