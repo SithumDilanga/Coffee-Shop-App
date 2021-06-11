@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/models/SnackProduct.dart';
+import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/models/coffeeProduct.dart';
 import 'package:coffee_shop_app/models/dessertProduct.dart';
@@ -31,6 +32,9 @@ class DataBaseService {
 
   // dessert collection reference
   final CollectionReference dessertsCollection = FirebaseFirestore.instance.collection('desserts');
+
+  // today specials collection reference
+  final CollectionReference todaySpecialsCollection = FirebaseFirestore.instance.collection('todaySpecials');
 
   // current cart users count
   final CollectionReference currentCartUsersCountRef = FirebaseFirestore.instance.collection('currentCartUsersCount');
@@ -166,6 +170,60 @@ class DataBaseService {
   }
 
   // ------------ End Dessert products -------------
+
+  // ------------ Today Specials products -------------
+
+  Future setTodaySpecialsProducts(String category, String name, int price, String desc, String imgUrl) async {
+
+    print(category);
+
+    return await todaySpecialsCollection.doc(uid).set({
+      'category': category,
+      'name': name,
+      'price': price,
+      'desc': desc,
+      'imgUrl': imgUrl,
+      'timeStamp': FieldValue.serverTimestamp(),
+    });
+
+  }
+
+  // product list from snapshot
+  List<TodaySpecialstProduct> _todaySpecialsListFromSnapshot(QuerySnapshot snapshot) {
+    
+    return snapshot.docs.map((doc) {
+      print('snap ' + doc.data().toString());
+      return TodaySpecialstProduct(
+        category: doc.data()['category'] ?? '',
+        name: doc.data()['name'] ?? '',
+        price: doc.data()['price'] ?? '',
+        desc: doc.data()['desc'] ?? '',
+        imgUrl: doc.data()['imgUrl'] ?? '',
+      );
+    }).toList();
+  }
+
+  // get products stream
+  Stream<List<TodaySpecialstProduct>> get todaySpecialsProducts {
+    return dessertsCollection.snapshots().map(_todaySpecialsListFromSnapshot);
+  }
+
+  // deleting product
+  Future removeTodaySpecialProduct(String name) async {
+
+    todaySpecialsCollection
+      .where('name', isEqualTo: name)
+      .get().then((value) {
+        value.docs.forEach((element) {
+          todaySpecialsCollection.doc(element.id).delete().then((val) {
+            print('deleted ' + element.id);
+          });
+        });
+      });
+
+  }
+
+  // ------------ End Today Specials products -------------
 
   // users list from snapshot
   List<UserData> _usersListFromSnapshot(QuerySnapshot snapshot) {

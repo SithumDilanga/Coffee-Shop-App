@@ -1,6 +1,7 @@
 import 'package:coffee_shop_app/authenticate/login.dart';
 import 'package:coffee_shop_app/authenticate/sign_up.dart';
 import 'package:coffee_shop_app/models/SnackProduct.dart';
+import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/models/coffeeProduct.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider<List<DessertProduct>>.value(
           value: DataBaseService().dessertProducts,
+        ),
+        StreamProvider<List<TodaySpecialstProduct>>.value(
+          value: DataBaseService().todaySpecialsProducts,
         ),
         StreamProvider<List<UserData>>.value(
           value: DataBaseService().users,

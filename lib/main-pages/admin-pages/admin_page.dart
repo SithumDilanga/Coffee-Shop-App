@@ -263,7 +263,7 @@ class _AdminPageState extends State<AdminPage> {
 
                                           database.removeCurrentCartUsersItem(allCartUserids[index]);
 
-                                          //TODO: new feature here
+                                          //TODO: new feature here(send this to database service)
                                           FirebaseFirestore.instance.collection('users').doc(allCartUserids[index]).update({'isCartUser': false});
                                           // 
 
