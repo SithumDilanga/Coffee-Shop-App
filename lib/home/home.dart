@@ -7,6 +7,7 @@ import 'package:coffee_shop_app/home/gridview.dart';
 import 'package:coffee_shop_app/main-pages/coffee_page.dart';
 import 'package:coffee_shop_app/main-pages/dessert_page.dart';
 import 'package:coffee_shop_app/main-pages/snacks_page.dart';
+import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
 import 'package:coffee_shop_app/models/coffeeProduct.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    // list of coffee products
-    final coffeeProducts = Provider.of<List<CoffeeProduct>>(context, listen: true) ?? [];
 
+    // list of today special products
+    final todaySpecialProducts  = Provider.of<List<TodaySpecialstProduct>>(context, listen: true) ?? [];
 
     return Scaffold(
       // backgroundColor: Colors.transparent,
@@ -155,7 +156,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(fontSize: 14.0, color: Colors.grey, fontWeight: FontWeight.w700),)
                       ),
                     ),
-                    TodaySpecialGrid(productCategory: coffeeProducts,)
+                    TodaySpecialGrid(productCategory: todaySpecialProducts,)
                   ]
                 )
               )

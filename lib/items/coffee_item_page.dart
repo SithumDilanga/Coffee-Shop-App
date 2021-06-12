@@ -56,11 +56,14 @@ class _CoffeeItemState extends State<CoffeeItem> {
           ),
         child: Stack(
           children: <Widget>[
-            Image.network(
-              '${widget.product.imgUrl}',
-              fit: BoxFit.cover,
-              height: 280,
-              width: double.infinity,
+            Hero(
+              tag: widget.product.name,
+              child: Image.network(
+                '${widget.product.imgUrl}',
+                fit: BoxFit.cover,
+                height: 280,
+                width: double.infinity,
+              ),
             ),// item image
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -100,7 +103,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   ),
                                 ),
                               ),
-
+                            
                               Text(  // Price
                                 '${widget.product.price} LKR',
                                 style: TextStyle(
@@ -113,7 +116,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                           ),
                         ),
                         //----------- End item title -----------
-
+                            
                         //--------- item description ----------
                         Align(
                           alignment: Alignment.topLeft,
@@ -217,7 +220,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   borderRadius: BorderRadius.circular(35.0)
                                 ),
                                 onPressed: () {
-
+                            
                                   print(tableNoController.text);
                                   if(tableNoController.text == '') {
                                     Fluttertoast.showToast(
@@ -225,9 +228,9 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                       toastLength: Toast.LENGTH_SHORT,
                                     );
                                   } else {
-
+                            
                                     // TODO: check tableNoController data type
-
+                            
                                     // calling add to cart method
                                     cart.addToCart(
                                       Item(
@@ -241,20 +244,20 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                     
                                     // add current item price to total
                                     cart.addPriceToTotal(widget.product.price * itemCount);
-
+                            
                                     Fluttertoast.showToast(
                                       msg: 'Added to Cart',
                                       toastLength: Toast.LENGTH_SHORT,
                                     );
-
+                            
                                   } 
                                   
                                   setState(() {
                                     IsAddedToCart.isAddedToCart = true;
                                     print('da hell ' + IsAddedToCart.isAddedToCart.toString());
                                   });
-
-
+                            
+                            
                                 },
                               ),
                               RaisedButton(

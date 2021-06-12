@@ -27,15 +27,9 @@ class _AddToTodaySpecialsState extends State<AddToTodaySpecials> {
     // list of coffee products
     final snackProducts = Provider.of<List<SnackProduct>>(context, listen: true) ?? [];
 
-    // list of today special products
-    final todaySpecialProducts  = Provider.of<List<TodaySpecialstProduct>>(context, listen: true) ?? [];
-
     // counting all the available products
     int totalItemsCount = coffeeProducts.length + dessertProducts.length + snackProducts.length;
 
-    coffeeProducts.forEach((product) {
-      print('bitch pls ' + product.name.toString());
-    });
 
     return Material(
       child: DefaultTabController(
@@ -105,17 +99,6 @@ class _AddToTodaySpecialsState extends State<AddToTodaySpecials> {
           ),
         ),
       ),
-      // child: ListView.builder(
-      //   itemCount: coffeeProducts.length,
-      //   itemBuilder: (context, index) {
-      //     return Text(
-      //       '${coffeeProducts[index].name}',
-      //       style: TextStyle(
-      //         color: Colors.black
-      //       ),
-      //     );
-      //   }
-      // ),
     );
   }
 }
