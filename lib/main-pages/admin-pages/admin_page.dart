@@ -47,7 +47,6 @@ class _AdminPageState extends State<AdminPage> {
        allCartUserids.add(element.uid);
     });
 
-    print('user ids ' + allCartUserids.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -267,9 +266,8 @@ class _AdminPageState extends State<AdminPage> {
 
                                           database.removeCurrentCartUsersItem(allCartUserids[index]);
 
-                                          //TODO: new feature here(send this to database service)
-                                          FirebaseFirestore.instance.collection('users').doc(allCartUserids[index]).update({'isCartUser': false});
-                                          // 
+                                          // set isCartUser to false
+                                          database.setIsCartUser(allCartUserids[index], false);
 
                                           
 
@@ -308,14 +306,14 @@ class _AdminPageState extends State<AdminPage> {
                 },
             );
               } else {
-                    return Align(
-                      alignment: Alignment(0.0, -0.5),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 0),
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    );
-                  }
+                return Align(
+                  alignment: Alignment(0.0, -0.5),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 0),
+                    child: CupertinoActivityIndicator(),
+                  ),
+                );
+              }
 
             } else { // if cart items are empty then show this
 

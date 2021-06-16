@@ -27,7 +27,6 @@ class AuthService {
 
       User user = result.user;
 
-      // TODO: create a new firestore document for the user with uid 
       await DataBaseService(uid: user.uid).updateUserData(name, email, password, false);
 
       return _userFromFirebaseUser(user); 

@@ -23,7 +23,6 @@ class DataBaseService {
   // users collection reference
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
-  //TODO: change collection name into coffee
   // coffee collection reference
   final CollectionReference coffeeCollection = FirebaseFirestore.instance.collection('products');
 
@@ -267,11 +266,10 @@ class DataBaseService {
     
   }
 
-  // TODO: remove this function
   // keep how many users using cart realtime
-  Future currentCartUser() async {
-    return await currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(1)});
-  }
+  // Future currentCartUser() async {
+  //   return await currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(1)});
+  // }
 
   // getting currentCartUsers count from the database 
   Future<int> getCurrentCartUserCount() async {
@@ -283,6 +281,11 @@ class DataBaseService {
     });
 
     return currentCartUsersCount;
+  }
+
+  // set whether the user is currently cartUser or not
+  Future setIsCartUser(String userId, bool isCartUser) async {
+     FirebaseFirestore.instance.collection('users').doc(userId).update({'isCartUser': isCartUser});
   }
 
   // add current user as a cart user to the database

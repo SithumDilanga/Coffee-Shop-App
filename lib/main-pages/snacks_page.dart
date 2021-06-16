@@ -1,4 +1,4 @@
-import 'package:coffee_shop_app/home/gridview.dart';
+import 'package:coffee_shop_app/home/product_gridview.dart';
 import 'package:coffee_shop_app/home/home.dart';
 import 'package:coffee_shop_app/main-pages/coffee_page_content.dart';
 import 'package:coffee_shop_app/models/SnackProduct.dart';
@@ -66,7 +66,7 @@ class SnacksPageState extends State<SnacksPage> {
               ]
             ),
             SizedBox(height: 50.0),
-            TodaySpecialGrid(productCategory: snackProducts,)
+            ProductGridView(productCategory: snackProducts,)
           ],
         ),
       )

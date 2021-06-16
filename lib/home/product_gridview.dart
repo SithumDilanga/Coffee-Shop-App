@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-class TodaySpecialGrid extends StatefulWidget {
+class ProductGridView extends StatefulWidget {
 
   final productCategory;
 
-  TodaySpecialGrid({this.productCategory});
+  ProductGridView({this.productCategory});
 
   @override
-  _TodaySpecialGridState createState() => _TodaySpecialGridState();
+  _ProductGridViewState createState() => _ProductGridViewState();
 }
 
-class _TodaySpecialGridState extends State<TodaySpecialGrid> {
+class _ProductGridViewState extends State<ProductGridView> {
 
   
 
@@ -35,7 +35,7 @@ class _TodaySpecialGridState extends State<TodaySpecialGrid> {
       crossAxisCount: 2, 
       itemCount: widget.productCategory.length, //coffeeProducts.length
       itemBuilder: (context, index) {
-        return TodaySpecialItem(product: widget.productCategory[index]); //coffeeProducts[index]
+        return ProductGridItem(product: widget.productCategory[index]); //coffeeProducts[index]
       }, 
       staggeredTileBuilder: (index) {
         return StaggeredTile.count(1, index.isEven ? 1.15 : 1.15);

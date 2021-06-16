@@ -1,4 +1,4 @@
-import 'package:coffee_shop_app/home/gridview.dart';
+import 'package:coffee_shop_app/home/product_gridview.dart';
 import 'package:coffee_shop_app/home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +47,7 @@ class CoffeePageContent extends StatelessWidget {
               ]
             ),
             SizedBox(height: 50.0),
-            TodaySpecialGrid()
+            ProductGridView()
           ],
         ),
       )

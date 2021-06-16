@@ -7,6 +7,7 @@ import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,14 @@ class _CartPageState extends State<CartPage> {
           _getIsCartUser()
         ]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+          if(snapshot.data == null) {
+            return Align(
+              alignment: Alignment(0.0, -0.5),
+              child: CupertinoActivityIndicator()
+            );
+          }
+
           return Consumer(
           builder: (BuildContext context, Cart cart, _){
 
@@ -92,22 +101,6 @@ class _CartPageState extends State<CartPage> {
                 child: ListView.builder(
                 itemCount: cart.items.length,
                 itemBuilder: (BuildContext context, int index){
-                  
-                  //TODO: fix feature here
-                  // cartUsers.forEach(
-                  //   (element) {
-                  //     if(element.uid != auth.currentUser.uid && IsAddedToCart.isAddedToCart) {
-                  //       print('over here ' + element.uid.toString());
-
-                  //       // deduct current item price from the total
-                  //       cart.deductPriceFromTotal(cart.items[index].itemPrice * cart.items[index].amount);
-
-                  //       // remove the cart
-                  //       cart.removeFromCart(index);
-
-                  //     }
-                  //   }
-                  // );
 
                   return Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
@@ -230,7 +223,7 @@ class _CartPageState extends State<CartPage> {
                                                       // if cart items are empty that user is no longer an cartUser
                                                       if(cart.items.length == 0) {
 
-                                                        // TODO: send this function to database service
+                                                        // how many users using cart realtime
                                                         // DataBaseService().currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(-1)});
 
                                                         LockCartUser.once = false;
@@ -392,19 +385,46 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                     actions: <Widget>[
 
-                                      Column(
-                                        children: <Widget>[
-                                          RaisedButton( // yes button
-                                            color: Colors.brown, 
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(35)
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: <Widget>[
+                                            RaisedButton( // yes button
+                                              color: Colors.brown, 
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(35)
+                                              ),
+                                              padding: EdgeInsets.only(left: 40, right: 40, top: 10, bottom: 10),
+                                              child: Text(
+                                                'Pay Online', 
+                                                style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white
+                                              ),
                                             ),
-                                            padding: EdgeInsets.only(left: 40, right: 40, top: 10, bottom: 10),
-                                            child: Text(
-                                              'Pay Online', 
-                                              style: TextStyle(
+                                            onPressed: () {
+
+                                              // setState(() {
+                                              //   itemOntheWay = true;
+                                              // });
+                                                                                                
+                                              // pop out from the alert dialog
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        SizedBox(height: 8.0),
+                                        RaisedButton(
+                                          color: Colors.brown,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(35),
+                                          ),
+                                          padding: EdgeInsets.only(left: 35, right: 35, top: 10, bottom: 10),
+                                          child: Text( // no button
+                                            'Pay Cashier',
+                                            style: TextStyle(
                                               fontSize: 20.0,
-                                              color: Colors.white
+                                              color: Colors.white,
                                             ),
                                           ),
                                           onPressed: () {
@@ -412,63 +432,40 @@ class _CartPageState extends State<CartPage> {
                                             // setState(() {
                                             //   itemOntheWay = true;
                                             // });
-                                                                                              
-                                            // pop out from the alert dialog
+
+                                            // lock user as a cart user and make current user into a cart user
+                                            if(LockCartUser.once == false) {
+
+                                              //DataBaseService().currentCartUser();
+
+                                              DataBaseService(uid: auth.currentUser.uid).setCurrentCartUser(
+                                                snapshot.data[0], 
+                                                cart.items, 
+                                                cart.total,
+                                              );
+
+                                              // set isCartUser to true
+                                              database.setIsCartUser(auth.currentUser.uid, true);
+                                              
+                                              LockCartUser.once = true;
+                                            }
+
+                                            // ---- new here ------
+                                            // dynamic val = database.getIsCartUser(auth.currentUser.uid);
+                                            setState(() {
+                                              
+                                            });
+
+                                            Fluttertoast.showToast(
+                                              msg: 'Your order is on the way!',
+                                              toastLength: Toast.LENGTH_SHORT,
+                                            );
+
                                             Navigator.of(context).pop();
                                           },
                                         ),
-                                      SizedBox(height: 8.0),
-                                      RaisedButton(
-                                        color: Colors.brown,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(35),
+                                          ]
                                         ),
-                                        padding: EdgeInsets.only(left: 35, right: 35, top: 10, bottom: 10),
-                                        child: Text( // no button
-                                          'Pay Cashier',
-                                          style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        onPressed: () {
-
-                                          // setState(() {
-                                          //   itemOntheWay = true;
-                                          // });
-
-                                          // lock user as a cart user and make current user into a cart user
-                                          if(LockCartUser.once == false) {
-
-                                            //DataBaseService().currentCartUser();
-
-                                            DataBaseService(uid: auth.currentUser.uid).setCurrentCartUser(
-                                              snapshot.data[0], 
-                                              cart.items, 
-                                              cart.total,
-                                            );
-
-                                            //TODO: new feature here
-                                            FirebaseFirestore.instance.collection('users').doc(auth.currentUser.uid).update({'isCartUser': true});
-                                            
-                                            LockCartUser.once = true;
-                                          }
-
-                                          // ---- new here ------
-                                          // dynamic val = database.getIsCartUser(auth.currentUser.uid);
-                                          setState(() {
-                                            
-                                          });
-
-                                          Fluttertoast.showToast(
-                                            msg: 'Your order is on the way!',
-                                            toastLength: Toast.LENGTH_SHORT,
-                                          );
-
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                        ]
                                       )
                                     ],
                                   ),

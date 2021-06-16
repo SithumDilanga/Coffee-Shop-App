@@ -3,7 +3,7 @@ import 'package:coffee_shop_app/common/home_buttons.dart';
 import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/home/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
-import 'package:coffee_shop_app/home/gridview.dart';
+import 'package:coffee_shop_app/home/product_gridview.dart';
 import 'package:coffee_shop_app/main-pages/coffee_page.dart';
 import 'package:coffee_shop_app/main-pages/dessert_page.dart';
 import 'package:coffee_shop_app/main-pages/snacks_page.dart';
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Positioned.fill(
                           child: Image.asset(
-                            'assets/home-img1.png',
+                            'assets/home-img2.png',
                             fit: BoxFit.cover,
                           )
                         ),
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(fontSize: 14.0, color: Colors.grey, fontWeight: FontWeight.w700),)
                       ),
                     ),
-                    TodaySpecialGrid(productCategory: todaySpecialProducts,)
+                    ProductGridView(productCategory: todaySpecialProducts,)
                   ]
                 )
               )

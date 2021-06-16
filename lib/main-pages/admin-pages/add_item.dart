@@ -19,6 +19,8 @@ class _AddItemState extends State<AddItem> {
   DataBaseService database = DataBaseService();
   Storage storage = Storage();
 
+  bool isImageAdded = false;
+
   // ------- product image pick -------
 
   File _image;
@@ -31,6 +33,13 @@ class _AddItemState extends State<AddItem> {
     setState(() {
       _image = File(pickedFile.path);
     });
+
+    // check whether image is added
+    if(_image.toString().isNotEmpty){
+      setState(() {
+        isImageAdded = true;
+      });
+    }
     
     // calling uploadProductImage
     storage.uploadProductImage(_image);
@@ -134,7 +143,7 @@ class _AddItemState extends State<AddItem> {
                                 ),
                               ),
                             ),
-                            //SizedBox(width: 55.0), //TODO: find a way to align all input text fields
+                            //SizedBox(width: 55.0),
                             Expanded(
                               child: Container(
                                 height: 55.0,
@@ -275,7 +284,13 @@ class _AddItemState extends State<AddItem> {
                                 child: InkWell(
                                   child: Row(
                                     children: <Widget>[
-                                      Padding(
+                                      isImageAdded ? Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.grey,
+                                        ),
+                                      ) : Padding(
                                         padding: const EdgeInsets.only(left: 8.0),
                                         child: Icon(
                                           Icons.upload_rounded,
@@ -283,11 +298,19 @@ class _AddItemState extends State<AddItem> {
                                         ),
                                       ),
                                       SizedBox(width: 8.0),
-                                      Text(
+                                      isImageAdded ? Text(
+                                        'Image Added',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ) : Text(
                                         'Pick a Image',
                                         style: TextStyle(
                                           fontSize: 16.0,
-                                          color: Colors.grey
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold
                                         ),
                                       )
                                     ],

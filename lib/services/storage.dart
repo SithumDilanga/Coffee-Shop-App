@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Storage {
 
@@ -18,8 +19,12 @@ class Storage {
 
     Reference photosRef = FirebaseStorage.instance.ref().child('photos').child(imageFileName);
 
-    // TODO: check what happens with whenComplete's callback function
-    photosRef.putFile(imageFile).whenComplete((() {})).then((storageTask) async {
+    photosRef.putFile(imageFile).whenComplete((() {
+      Fluttertoast.showToast(
+        msg: 'Image added!',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    })).then((storageTask) async {
       imageLink = await storageTask.ref.getDownloadURL(); 
       print(imageLink);
     });

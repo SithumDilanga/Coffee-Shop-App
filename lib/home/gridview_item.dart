@@ -2,18 +2,18 @@ import 'package:coffee_shop_app/items/coffee_item_page.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
 
-class TodaySpecialItem extends StatefulWidget {
+class ProductGridItem extends StatefulWidget {
 
   //getting Products data coming from the TodaySpecialGrid
   final Product product;
 
-  TodaySpecialItem({this.product});
+  ProductGridItem({this.product});
 
   @override
-  _TodaySpecialItemState createState() => _TodaySpecialItemState();
+  _ProductGridItemState createState() => _ProductGridItemState();
 }
 
-class _TodaySpecialItemState extends State<TodaySpecialItem> {
+class _ProductGridItemState extends State<ProductGridItem> {
   @override
   Widget build(BuildContext context) {
       return Card(

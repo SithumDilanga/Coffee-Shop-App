@@ -135,13 +135,15 @@ class _CoffeeItemState extends State<CoffeeItem> {
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Row(
                             children: <Widget>[
-                              IconButton( //TODO: item no should not minus
+                              IconButton(
                                 icon: Icon(MyIcons.minuIcon, size: 34.0, color: Colors.brown,),
                                 onPressed: () {
                                   //item.decrease();
                                   setState(() {
                                     itemCount--;
-                                    print(itemCount);
+                                    if(itemCount < 0) { // should not below 0
+                                      itemCount = 0;
+                                    }
                                   });
                                 },
                               ),
@@ -153,7 +155,6 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                 onPressed: () {
                                   setState(() {
                                     itemCount++;
-                                    print(itemCount);
                                   });
                                   //item.increase(itemCount);
                                 },
@@ -174,10 +175,10 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                 child: Container(
                                   height: 30.0,
                                   child: TextFormField(  
-                                    controller: tableNoController,    // email field
+                                    controller: tableNoController,
                                     cursorColor: Colors.brown[500],
                                     decoration: InputDecoration(
-                                      //contentPadding: EdgeInsets.only(top: 1.0),
+                                      contentPadding: EdgeInsets.only(top: 0.8, left: 4.0),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.brown[500],)
                                       ),
@@ -225,8 +226,6 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                       toastLength: Toast.LENGTH_SHORT,
                                     );
                                   } else {
-                            
-                                    // TODO: check tableNoController data type
                             
                                     // calling add to cart method
                                     cart.addToCart(
