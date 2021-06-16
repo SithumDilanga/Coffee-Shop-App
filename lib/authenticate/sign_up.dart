@@ -61,14 +61,20 @@ class _SignUpState extends State<SignUp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text('Email', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
+                        Text(
+                          'Email', 
+                          style: TextStyle(
+                            fontSize: 16.0, 
+                            color: Colors.grey
+                            ),
+                          ),
                         TextFormField(
                           cursorColor: Colors.brown[500],
                           decoration: InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.brown[500])
                             ),
-                            //hintText: 'Enter your Email'
+                            // hintText: 'Enter your Email'
                           ),
                           // validation
                           validator: (val) => val.isEmpty ? 'Enter an Email' : null,
@@ -79,7 +85,13 @@ class _SignUpState extends State<SignUp> {
                           },
                         ),
                         SizedBox(height: 16.0),
-                        Text('Password', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
+                        Text(
+                          'Password', 
+                          style: TextStyle(
+                            fontSize: 16.0, 
+                            color: Colors.grey
+                            ),
+                          ),
                         TextFormField(
                           cursorColor: Colors.brown[500],
                           decoration: InputDecoration(
@@ -97,7 +109,13 @@ class _SignUpState extends State<SignUp> {
                           },
                         ),
                         SizedBox(height: 16.0),
-                        Text('Username', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
+                        Text(
+                          'Username', 
+                          style: TextStyle(
+                            fontSize: 16.0, 
+                            color: Colors.grey
+                            ),
+                          ),
                         TextFormField(
                           cursorColor: Colors.brown[500],
                           decoration: InputDecoration(

@@ -56,14 +56,11 @@ class _CoffeeItemState extends State<CoffeeItem> {
           ),
         child: Stack(
           children: <Widget>[
-            Hero(
-              tag: widget.product.name,
-              child: Image.network(
-                '${widget.product.imgUrl}',
-                fit: BoxFit.cover,
-                height: 280,
-                width: double.infinity,
-              ),
+            Image.network(
+              '${widget.product.imgUrl}',
+              fit: BoxFit.cover,
+              height: 280,
+              width: double.infinity,
             ),// item image
             Padding(
               padding: const EdgeInsets.all(8.0),

@@ -31,7 +31,7 @@ class NavDrawer extends StatelessWidget {
               child: Text(''),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/sign-up-img.jpg'),
+                  image: AssetImage('assets/drawer-img3.jpg'),
                   fit: BoxFit.cover
                 )
               ),

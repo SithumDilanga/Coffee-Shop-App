@@ -50,14 +50,24 @@ class _LoginState extends State<Login> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text('Email', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
+                          Text(
+                            'Email', 
+                            style: TextStyle(
+                              fontSize: 16.0, 
+                              color: Colors.grey,
+                              ),
+                            ),
                           TextFormField(      // email field
                             cursorColor: Colors.brown[500],
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.brown[500])
                               ),
-                              //hintText: 'Enter your Email'
+                              // hintText: 'Enter your Email',
+                              // hintStyle: TextStyle(
+                              //   fontSize: 12,
+                              //   color: Colors.grey
+                              // )
                             ),
                             // validation
                             validator: (email) => email.isEmpty ? 'Enter the email' : null,
@@ -68,7 +78,13 @@ class _LoginState extends State<Login> {
                             },
                           ),
                           SizedBox(height: 16.0),
-                          Text('Password', style: TextStyle(fontSize: 14.0, color: Colors.grey),),
+                          Text(
+                            'Password', 
+                            style: TextStyle(
+                              fontSize: 16.0, 
+                              color: Colors.grey,
+                              ),
+                            ),
                           TextFormField(      // password field
                             cursorColor: Colors.brown[500],
                             decoration: InputDecoration(

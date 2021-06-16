@@ -6,7 +6,7 @@ class AboutUs extends StatelessWidget {
     return Material(
       child: Stack(
         children: <Widget>[
-          Image.asset('assets/latte.jpg'),
+          Image.asset('assets/about-us-img.jpg'),
           Positioned(
             bottom: 2,
             left: 40,

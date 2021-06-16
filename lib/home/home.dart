@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Positioned.fill(
                           child: Image.asset(
-                            'assets/home-img.png',
+                            'assets/home-img1.png',
                             fit: BoxFit.cover,
                           )
                         ),

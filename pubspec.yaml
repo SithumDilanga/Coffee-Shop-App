@@ -38,6 +38,7 @@ dependencies:
   cloud_firestore: ^0.16.0
   firebase_storage: ^7.0.0
   image_picker: ^0.6.7+22
+  flutter_native_splash: any # for splash screen
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +48,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
+
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -96,3 +98,10 @@ flutter:
     
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  # background_image: "assets/background.png"
+  image: assets/logo.png
+  ios: false
+  web: false
