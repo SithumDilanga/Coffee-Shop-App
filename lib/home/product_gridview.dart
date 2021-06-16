@@ -16,12 +16,6 @@ class ProductGridView extends StatefulWidget {
 
 class _ProductGridViewState extends State<ProductGridView> {
 
-  
-
-  // Future _loadMore(BuildContext context, bool streamListenState) {
-
-  // }
-
   @override
   Widget build(BuildContext context) {
 
@@ -41,20 +35,6 @@ class _ProductGridViewState extends State<ProductGridView> {
         return StaggeredTile.count(1, index.isEven ? 1.15 : 1.15);
       },
      );
-    
-    /*GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 8,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 2.0, mainAxisSpacing: 4.0, ),
-      itemBuilder: (BuildContext context, int index) {
-        return TodaySpecialItem();
-        /*Card(
-          child: Center(
-            child: Text('Text : ${index}')
-          ),
-        );*/
-      },
-    );*/
   }
 }
+
