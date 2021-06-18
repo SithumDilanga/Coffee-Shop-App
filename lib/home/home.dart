@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:coffee_shop_app/common/home_buttons.dart';
+import 'package:coffee_shop_app/common/route_transition.dart';
 import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/home/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
@@ -28,6 +29,8 @@ class _HomeState extends State<Home> {
   bool _floating = false;
 
   var top = 0.0;
+
+  // RouteTransition routeTransition = RouteTransition();
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +68,8 @@ class _HomeState extends State<Home> {
                       color: Colors.white,
                       iconSize: 32.0,
                       onPressed: () {
-                        
                         Navigator.of(context).push(_createCartRoute(CartPage()));
+                        // routeTransition.createRoute(CartPage(), 0.0, -1.0);
                       },
                     ),
                   ),
@@ -111,16 +114,8 @@ class _HomeState extends State<Home> {
                         MyIcons.coffeIcon, 
                         'Order Coffee', 
                         () {
-
                           Navigator.of(context).push(_createRoute(CoffeePage()));
-
-                        /*Navigator.of(context).push(
-                          PageRouteBuilder(pageBuilder: (context, animation, _) {
-                            return CoffeePage();
-                          },
-                          opaque: false
-                          ),
-                        );*/
+                          // routeTransition.createRoute(CoffeePage(), -1.0, 0.0);
                         }
                       )
                     ),
@@ -132,6 +127,7 @@ class _HomeState extends State<Home> {
                         'Order Snacks', 
                         () {
                           Navigator.of(context).push(_createRoute(SnacksPage()));
+                          // routeTransition.createRoute(SnacksPage(), -1.0, 0.0);
                         }
                       ),
                     ),
@@ -143,6 +139,7 @@ class _HomeState extends State<Home> {
                         'Order Desserts', 
                         () {
                           Navigator.of(context).push(_createRoute(DessertsPage()));
+                          // routeTransition.createRoute(DessertsPage(), -1.0, 0.0);
                         }
                       ),
                     ),
@@ -163,108 +160,6 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-
-        /*Material(
-          child: SingleChildScrollView(
-              child: SingleChildScrollView(
-                //physics: AlwaysScrollableScrollPhysics(),
-                child: Stack(
-                  children: <Widget> [
-                    Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/home-img.png'
-                      ),
-                      SizedBox(height: 32.0),
-                      Padding(    // Coffe Button
-                        padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
-                        child: HomePageMainButtons(
-                          MyIcons.coffeIcon, 
-                          'Order Coffee', 
-                          () {
-
-                            Navigator.of(context).push(_createRoute(CoffeePage()));
-
-                          /*Navigator.of(context).push(
-                            PageRouteBuilder(pageBuilder: (context, animation, _) {
-                              return CoffeePage();
-                            },
-                            opaque: false
-                            ),
-                          );*/
-                          }
-                        )
-                      ),
-                      SizedBox(height: 16.0),
-                      Padding(    // Snacks Button
-                        padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
-                        child: HomePageMainButtons(
-                          MyIcons.burgerIcon, 
-                          'Order Snacks', 
-                          () {
-                            Navigator.of(context).push(_createRoute(SnacksPage()));
-                          }
-                        ),
-                      ),
-                      SizedBox(height: 16.0),
-                      Padding(      // Desserts Button
-                        padding: const EdgeInsets.fromLTRB(70.0, 0, 70.0, 0),
-                        child: HomePageMainButtons(
-                          MyIcons.iceCreamIcon, 
-                          'Order Desserts', 
-                          () {
-                            Navigator.of(context).push(_createRoute(DessertsPage()));
-                          }
-                        ),
-                      ),
-                      SizedBox(height: 24.0,),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Today Special', 
-                            style: TextStyle(fontSize: 14.0, color: Colors.grey, fontWeight: FontWeight.w700),)
-                        ),
-                      ),
-                      //SizedBox(height: 8.0),
-                      TodaySpecialGrid(productCategory: coffeeProducts,)
-                    ],
-                  ),
-                  // Burger icon and cart icon
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:<Widget> [
-                      Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 32.0),
-                    child: IconButton(
-                      icon: Icon(Icons.menu),
-                      color: Colors.white, 
-                      iconSize: 32.0,
-                      onPressed: () {
-                        _scaffoldState.currentState.openDrawer();
-                      }
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 32.0),
-                    child: IconButton(
-                      icon: Icon(Icons.shopping_cart),
-                      color: Colors.white,
-                      iconSize: 32.0,
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
-                      },
-                    ),
-                  ),
-                    ]
-                  ),
-                ]
-                ),
-              ),
-            ),
-        ), */
       );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:coffee_shop_app/common/route_transition.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:coffee_shop_app/main-pages/admin-pages/admin_page.dart';
 import 'package:coffee_shop_app/nav_drawer_pages/about_us.dart';
@@ -9,6 +10,7 @@ class NavDrawer extends StatelessWidget {
 
   // instance of a AuthService class to acces authentication methods
   final AuthService _auth = AuthService();
+  // RouteTransition routeTransition = RouteTransition();
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +42,19 @@ class NavDrawer extends StatelessWidget {
             // rate app
             CustomeListTile(Icons.star_rate, 'Rate App', () {
               Navigator.of(context).push(_createRoute(AdminPage()));
+              // routeTransition.createRoute(AdminPage(), -1.0, 0.0); 
             }),
 
             // contact us
             CustomeListTile(Icons.support_agent, 'Contact Us', () {
               Navigator.of(context).push(_createRoute(ContactUs()));
+              // routeTransition.createRoute(ContactUs(), -1.0, 0.0); 
             }),
 
             // about us
             CustomeListTile(Icons.info, 'About Us', () {
               Navigator.of(context).push(_createRoute(AboutUs()));
+              // routeTransition.createRoute(AboutUs(), -1.0, 0.0); 
             }),
             CustomeListTile(Icons.logout, 'Log Out', () {
 

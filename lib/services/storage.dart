@@ -11,11 +11,13 @@ class Storage {
 
   DataBaseService database = DataBaseService();
 
-  Future<String> uploadProductImage(File imageFile) async {
+  Future<String> uploadProductImage(File imageFile, String imageName) async {
 
     // make random image name
     int randomNumber = Random().nextInt(1000000);
-    imageFileName = 'productImage$randomNumber.jpg';
+    // imageFileName = 'productImage$randomNumber.jpg';
+        imageFileName = '$imageName.jpg';
+
 
     Reference photosRef = FirebaseStorage.instance.ref().child('photos').child(imageFileName);
 
@@ -28,6 +30,21 @@ class Storage {
       imageLink = await storageTask.ref.getDownloadURL(); 
       print(imageLink);
     });
+
+  }
+
+  Future deleteProductImage(String imageName) async {
+
+    final Reference storageRef = FirebaseStorage.instance.ref().child('photos').child(imageName);
+
+    print('storage delete called ' + storageRef.toString());
+
+    try {
+      await storageRef.delete();
+    } catch(e) {
+      print('storage delete Error : ' + e.toString());
+      return e.toString();
+    }
 
   }
 

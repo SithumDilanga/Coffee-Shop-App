@@ -1,3 +1,4 @@
+import 'package:coffee_shop_app/common/route_transition.dart';
 import 'package:coffee_shop_app/items/coffee_item_page.dart';
 import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class ProductGridItem extends StatefulWidget {
 }
 
 class _ProductGridItemState extends State<ProductGridItem> {
+
+    // RouteTransition routeTransition = RouteTransition();
+
   @override
   Widget build(BuildContext context) {
       return Card(
@@ -79,10 +83,7 @@ class _ProductGridItemState extends State<ProductGridItem> {
             ),
             onTap: () {
               Navigator.of(context).push(_createRoute(CoffeeItem(product: widget.product,)));
-              // Navigator.push(context, MaterialPageRoute(
-              //     builder: (context) => CoffeeItem(product: widget.product,)
-              //   )
-              // );
+              // routeTransition.createRoute(CoffeeItem(product: widget.product,), 0.0, 1.0);  
             },
           ),
         );

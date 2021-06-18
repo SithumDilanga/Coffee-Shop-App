@@ -142,7 +142,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   setState(() {
                                     itemCount--;
                                     if(itemCount < 0) { // should not below 0
-                                      itemCount = 0;
+                                      itemCount = 1;
                                     }
                                   });
                                 },

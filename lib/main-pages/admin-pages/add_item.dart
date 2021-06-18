@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:coffee_shop_app/services/storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddItem extends StatefulWidget {
@@ -26,7 +27,7 @@ class _AddItemState extends State<AddItem> {
   File _image;
   final picker = ImagePicker();
 
-  Future pickImage() async {
+  Future pickImage(String imageName) async {
     
     PickedFile pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -42,7 +43,7 @@ class _AddItemState extends State<AddItem> {
     }
     
     // calling uploadProductImage
-    storage.uploadProductImage(_image);
+    storage.uploadProductImage(_image, imageName);
 
   }
 
@@ -316,7 +317,7 @@ class _AddItemState extends State<AddItem> {
                                     ],
                                   ),
                                   onTap: () {
-                                    pickImage();
+                                    pickImage(itemNameController.text);
                                   },
                                 )
                               ),
@@ -371,6 +372,11 @@ class _AddItemState extends State<AddItem> {
                               storage.imageLink
                             );
                           }
+
+                          Fluttertoast.showToast(
+                            msg: 'Item Added!',
+                            toastLength: Toast.LENGTH_SHORT,
+                          );
 
                         }
                       ),

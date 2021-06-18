@@ -1,5 +1,6 @@
 import 'package:coffee_shop_app/authenticate/sign_up.dart';
 import 'package:coffee_shop_app/common/loading.dart';
+import 'package:coffee_shop_app/common/route_transition.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,6 +24,8 @@ class _LoginState extends State<Login> {
   String password = '';
 
   bool loading = false;
+
+  // RouteTransition routeTransition = RouteTransition();
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +149,7 @@ class _LoginState extends State<Login> {
                               child: Text('SIGN UP', style: TextStyle(fontSize: 16.0, color: Colors.brown[500] )),
                               onPressed: (){
                                 Navigator.of(context).push(_createRoute(SignUp()));
+                                // routeTransition.createRoute(SignUp(), 1.0, 0.0);    
                               }, 
                             ),
                           )
@@ -162,7 +166,6 @@ class _LoginState extends State<Login> {
   }
 }
 
-// TODO: create a common method for this route animation
 
 Route _createRoute(var routePage) {
   return PageRouteBuilder(

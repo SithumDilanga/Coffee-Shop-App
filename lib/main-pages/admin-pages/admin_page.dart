@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/common/on_the_way_card.dart';
+import 'package:coffee_shop_app/common/route_transition.dart';
 import 'package:coffee_shop_app/main-pages/admin-pages/add_item.dart';
+import 'package:coffee_shop_app/main-pages/admin-pages/remove_products.dart';
 import 'package:coffee_shop_app/main-pages/admin-pages/today_specials.dart';
 import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/models/cart.dart';
@@ -22,6 +24,7 @@ class _AdminPageState extends State<AdminPage> {
   // print(auth.currentUser.email);
 
   DataBaseService database = DataBaseService();
+  // RouteTransition routeTransition = RouteTransition();
 
   // cart user's ordered items
   var allItems = [];
@@ -69,7 +72,8 @@ class _AdminPageState extends State<AdminPage> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).push(_createRoute(AddItem()));              
+                Navigator.of(context).push(_createRoute(AddItem()));     
+                // routeTransition.createRoute(AddItem(), -1.0, -1.0);         
               },
             ),
           ),
@@ -86,14 +90,18 @@ class _AdminPageState extends State<AdminPage> {
                 'Today Specials'
               ),
               onPressed: () {
-                // Navigator.push(context, MaterialPageRoute(
-                //     builder: (context) => AddToTodaySpecials()
-                //   )
-                // );
                 Navigator.of(context).push(_createRoute(AddToTodaySpecials()));
+                // routeTransition.createRoute(AddToTodaySpecials(), -1.0, -1.0);  
               }, 
             ),
-          )
+          ),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              Navigator.of(context).push(_createRoute(RemoveProducts()));
+              // routeTransition.createRoute(RemoveProducts(), -1.0, -1.0);  
+            }, 
+          ),
         ],
       ),
       body: FutureBuilder(
@@ -120,9 +128,9 @@ class _AdminPageState extends State<AdminPage> {
                 itemCount: cartUsers.length, //snapshot.data[1], // current cart user's count
                 itemBuilder: (BuildContext context, int index) {
 
-                  print('length ' + cartUsers.length.toString());
-                  print('name ' + cartUsers[index].name.toString());
-                  print('uid ' + cartUsers[index].uid.toString());
+                  // print('length ' + cartUsers.length.toString());
+                  // print('name ' + cartUsers[index].name.toString());
+                  // print('uid ' + cartUsers[index].uid.toString());
                   
                   // check whether there is a cart user
                       return Padding(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/models/SnackProduct.dart';
 import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
@@ -5,16 +7,13 @@ import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/models/coffeeProduct.dart';
 import 'package:coffee_shop_app/models/dessertProduct.dart';
 import 'package:coffee_shop_app/models/item.dart';
-import 'package:coffee_shop_app/models/product.dart';
 import 'package:coffee_shop_app/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class DataBaseService {
 
   // userid of the user
   final String uid;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
 
   DataBaseService({this.uid});
 
@@ -24,7 +23,7 @@ class DataBaseService {
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
 
   // coffee collection reference
-  final CollectionReference coffeeCollection = FirebaseFirestore.instance.collection('products');
+  final CollectionReference coffeeCollection = FirebaseFirestore.instance.collection('coffee'); //products
 
   // snacks collection reference
   final CollectionReference snacksCollection = FirebaseFirestore.instance.collection('snacks');
@@ -224,6 +223,80 @@ class DataBaseService {
 
   // ------------ End Today Specials products -------------
 
+
+  // ------------ Delete Products ----------------
+
+    Future removeProduct(String category, String productName) async {
+
+      switch(category) {
+        case 'Coffee' : {
+
+          deleteItem(coffeeCollection, productName);
+          // coffeeCollection
+          // .where('name', isEqualTo: productName)
+          // .get().then((value) {
+          //   value.docs.forEach((element) {
+          //     coffeeCollection.doc(element.id).delete().then((val) {
+          //       print('deleted ' + element.id);
+          //     });
+          //   });
+          // });
+          break;
+        }
+
+        case 'Snacks' : {
+
+          deleteItem(snacksCollection, productName);
+          // snacksCollection
+          // .where('name', isEqualTo: productName)
+          // .get().then((value) {
+          //   value.docs.forEach((element) {
+          //     snacksCollection.doc(element.id).delete().then((val) {
+          //       print('deleted ' + element.id);
+          //     });
+          //   });
+          // });
+          break;
+
+        }
+
+        case 'Desserts' : {
+
+          deleteItem(dessertsCollection, productName);
+          // dessertsCollection
+          // .where('name', isEqualTo: productName)
+          // .get().then((value) {
+          //   value.docs.forEach((element) {
+          //     dessertsCollection.doc(element.id).delete().then((val) {
+          //       print('deleted ' + element.id);
+          //     });
+          //   });
+          // });
+          break;
+
+        } 
+      }
+    
+  }
+
+  // helper fucntion for removeProduct
+  deleteItem(final collection, String productName) {
+    collection
+      .where('name', isEqualTo: productName)
+      .get().then((value) {
+        value.docs.forEach((element) {
+          collection.doc(element.id).delete().then((val) {
+            print('deleted ' + element.id);
+          });
+        });
+      });
+  }
+
+  // ------------ End Delete Products ----------------
+
+
+  // ------------- User related functions -------------
+
   // users list from snapshot
   List<UserData> _usersListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -410,3 +483,4 @@ class DataBaseService {
 
 }
 
+// ------------- End User related functions -------------
