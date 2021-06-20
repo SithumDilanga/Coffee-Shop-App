@@ -1,27 +1,24 @@
 import 'package:coffee_shop_app/common/isAddedToCart.dart';
-import 'package:coffee_shop_app/common/lock_cart_user.dart';
-import 'package:coffee_shop_app/main-pages/cart_page.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/item.dart';
 import 'package:coffee_shop_app/models/product.dart';
-import 'package:coffee_shop_app/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
 import 'package:provider/provider.dart';
 
-class CoffeeItem extends StatefulWidget{
+class ProductItem extends StatefulWidget{
 
   final Product product;
 
-  CoffeeItem({this.product});
+  ProductItem({this.product});
 
   @override
-  _CoffeeItemState createState() => _CoffeeItemState();
+  _ProductItemState createState() => _ProductItemState();
 }
 
-class _CoffeeItemState extends State<CoffeeItem> {
+class _ProductItemState extends State<ProductItem> {
 
   String itemName = 'Cappuccino';
   int itemPrice = 240;
@@ -141,7 +138,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                   //item.decrease();
                                   setState(() {
                                     itemCount--;
-                                    if(itemCount < 0) { // should not below 0
+                                    if(itemCount < 1) { // should not below 0
                                       itemCount = 1;
                                     }
                                   });
@@ -178,7 +175,7 @@ class _CoffeeItemState extends State<CoffeeItem> {
                                     controller: tableNoController,
                                     cursorColor: Colors.brown[500],
                                     decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.only(top: 0.8, left: 4.0),
+                                      contentPadding: EdgeInsets.only(top: 0.8, left: 8.0),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(color: Colors.brown[500],)
                                       ),
@@ -282,115 +279,5 @@ class _CoffeeItemState extends State<CoffeeItem> {
         ),
       ),
     );
-    
-    /*MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,//HexColor('#FFFFFF'),
-        body: SingleChildScrollView(
-          //physics: AlwaysScrollableScrollPhysics(),
-          child: Container(
-              //constraints: BoxConstraints.expand(),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/cappuccino.jpg'),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topLeft,
-                )
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0, top: 32.0),
-                child: Column(
-                  children:<Widget> [
-                    Row(
-                      children:<Widget> [
-                        IconButton(
-                          icon: Icon(Icons.arrow_back, size: 30,), 
-                          color: Colors.white,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }
-                        ),
-                        SizedBox(width: 16.0),
-                        Text(
-                          'Coffee',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10.0,
-                                color: Colors.black,
-                                // offset: Offset(1.0,1.0),
-                              )
-                            ],
-                          ),
-                        )
-                      ]
-                    ),
-                    SizedBox(height: 50.0),
-                    Card(
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Text('data')
-                            ],
-                          ),
-                        ],
-                      )
-                    )
-                  ],
-                ),
-              )
-            ),
-        ),
-      )
-    );*/
-    
-    /*MaterialApp(
-      home: Scaffold(
-        body:SingleChildScrollView(
-          child: Container(
-                //constraints: BoxConstraints.expand(),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/cappuccino.jpg'),
-                    fit: BoxFit.contain,
-                    alignment: Alignment.topLeft,
-                  )
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    children: <Widget> [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
-                      SizedBox(height: 100),
-                      Card(
-                        child: Column(
-                          children: <Widget> [
-                            Row(
-                              children: <Widget> [
-                                Text('data'),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text('data')
-                                ),
-                              ]
-                            ),
-                          ] 
-                        ),
-                      )
-                    ]
-                  ),
-                ),
-              ),
-        ),
-      ),
-    );*/
   }
 }

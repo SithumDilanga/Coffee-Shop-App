@@ -1,13 +1,9 @@
-import 'package:coffee_shop_app/authenticate/login.dart';
-import 'package:coffee_shop_app/authenticate/sign_up.dart';
 import 'package:coffee_shop_app/models/SnackProduct.dart';
 import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/models/coffeeProduct.dart';
 import 'package:coffee_shop_app/models/dessertProduct.dart';
-import 'package:coffee_shop_app/models/item.dart';
-import 'package:coffee_shop_app/models/product.dart';
 import 'package:coffee_shop_app/models/uid.dart';
 import 'package:coffee_shop_app/models/user.dart';
 import 'package:coffee_shop_app/services/auth.dart';

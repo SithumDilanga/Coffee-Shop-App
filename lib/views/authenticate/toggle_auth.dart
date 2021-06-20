@@ -1,5 +1,5 @@
-import 'package:coffee_shop_app/authenticate/login.dart';
-import 'package:coffee_shop_app/authenticate/sign_up.dart';
+import 'package:coffee_shop_app/views/authenticate/login.dart';
+import 'package:coffee_shop_app/views/authenticate/sign_up.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {

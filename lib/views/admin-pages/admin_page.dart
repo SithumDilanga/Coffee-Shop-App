@@ -1,16 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coffee_shop_app/common/on_the_way_card.dart';
 import 'package:coffee_shop_app/common/route_transition.dart';
-import 'package:coffee_shop_app/main-pages/admin-pages/add_item.dart';
-import 'package:coffee_shop_app/main-pages/admin-pages/remove_products.dart';
-import 'package:coffee_shop_app/main-pages/admin-pages/today_specials.dart';
-import 'package:coffee_shop_app/main-pages/cart_page.dart';
+import 'package:coffee_shop_app/views/admin-pages/add_item.dart';
+import 'package:coffee_shop_app/views/admin-pages/remove_products.dart';
+import 'package:coffee_shop_app/views/admin-pages/today_specials.dart';
 import 'package:coffee_shop_app/models/cart.dart';
 import 'package:coffee_shop_app/models/cart_user.dart';
 import 'package:coffee_shop_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class AdminPage extends StatefulWidget {
@@ -24,7 +22,7 @@ class _AdminPageState extends State<AdminPage> {
   // print(auth.currentUser.email);
 
   DataBaseService database = DataBaseService();
-  // RouteTransition routeTransition = RouteTransition();
+  RouteTransition routeTransition = RouteTransition();
 
   // cart user's ordered items
   var allItems = [];
@@ -56,29 +54,28 @@ class _AdminPageState extends State<AdminPage> {
         backgroundColor: Colors.brown,
         actions: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: RaisedButton(
-              color: Colors.brown,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6.0),
+            padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.brown,
                 side: BorderSide(
                   color: Colors.white
                 )
               ),
               child: Text(
-                'ADD ITEMS',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+                'Add Items'
               ),
               onPressed: () {
-                Navigator.of(context).push(_createRoute(AddItem()));     
-                // routeTransition.createRoute(AddItem(), -1.0, -1.0);         
-              },
+                // Navigator.of(context).push(_createRoute(AddItem()));
+                Navigator.of(context).push(
+                  routeTransition.createRoute(AddItem(), -1.0, -1.0)
+                );
+                
+              }, 
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.fromLTRB(4.0, 10.0, 2.0, 10.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.brown,
@@ -90,16 +87,22 @@ class _AdminPageState extends State<AdminPage> {
                 'Today Specials'
               ),
               onPressed: () {
-                Navigator.of(context).push(_createRoute(AddToTodaySpecials()));
-                // routeTransition.createRoute(AddToTodaySpecials(), -1.0, -1.0);  
+                // Navigator.of(context).push(_createRoute(AddToTodaySpecials()));
+                Navigator.of(context).push(
+                  routeTransition.createRoute(AddToTodaySpecials(), -1.0, -1.0)
+                );
+                  
               }, 
             ),
           ),
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              Navigator.of(context).push(_createRoute(RemoveProducts()));
-              // routeTransition.createRoute(RemoveProducts(), -1.0, -1.0);  
+              // Navigator.of(context).push(_createRoute(RemoveProducts()));
+              Navigator.of(context).push(
+                  routeTransition.createRoute(RemoveProducts(), -1.0, -1.0)
+                );
+                 
             }, 
           ),
         ],
@@ -127,10 +130,6 @@ class _AdminPageState extends State<AdminPage> {
               return ListView.builder(
                 itemCount: cartUsers.length, //snapshot.data[1], // current cart user's count
                 itemBuilder: (BuildContext context, int index) {
-
-                  // print('length ' + cartUsers.length.toString());
-                  // print('name ' + cartUsers[index].name.toString());
-                  // print('uid ' + cartUsers[index].uid.toString());
                   
                   // check whether there is a cart user
                       return Padding(
@@ -213,39 +212,6 @@ class _AdminPageState extends State<AdminPage> {
                                             ],
                                           ),
                                         ),
-
-                                      /*for(var item in cart.items) 
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('${item.itemName}'),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.close,
-                                                    size: 12,
-                                                  ),
-                                                  Text('${item.amount}'),
-                                                ],
-                                              ),
-                                              SizedBox(width: 32.0),
-                                              Text('${item.itemPrice * item.amount}'),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text('Total'),
-                                              SizedBox(width: 32.0),
-                                              Text('${cart.total}'),
-                                            ],
-                                          ),
-                                        ),*/
                                     ]
                                   ),
                                 ),
@@ -277,7 +243,10 @@ class _AdminPageState extends State<AdminPage> {
                                           // set isCartUser to false
                                           database.setIsCartUser(allCartUserids[index], false);
 
-                                          
+                                          Fluttertoast.showToast(
+                                            msg: '${snapshot.data[0]} Order Completed',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                          );
 
                                         }
                                       ),
@@ -354,23 +323,4 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
-}
-
-Route _createRoute(var routePage) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => routePage,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(-1.0, -1.0);
-      // var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      // var tween = Tween(begin: begin, end: end);
-      var curve = Curves.ease;
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      //var offsetAnimation = animation.drive(tween);
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }

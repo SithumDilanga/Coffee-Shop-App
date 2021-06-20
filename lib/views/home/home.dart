@@ -1,16 +1,13 @@
-import 'dart:async';
 import 'package:coffee_shop_app/common/home_buttons.dart';
 import 'package:coffee_shop_app/common/route_transition.dart';
-import 'package:coffee_shop_app/main-pages/cart_page.dart';
-import 'package:coffee_shop_app/home/nav_drawer.dart';
+import 'package:coffee_shop_app/views/main-pages/cart_page.dart';
+import 'package:coffee_shop_app/views/nav_drawer_pages/nav_drawer.dart';
 import 'package:coffee_shop_app/icons/my_icons.dart';
-import 'package:coffee_shop_app/home/product_gridview.dart';
-import 'package:coffee_shop_app/main-pages/coffee_page.dart';
-import 'package:coffee_shop_app/main-pages/dessert_page.dart';
-import 'package:coffee_shop_app/main-pages/snacks_page.dart';
+import 'package:coffee_shop_app/views/home/product_gridview.dart';
+import 'package:coffee_shop_app/views/main-pages/coffee_page.dart';
+import 'package:coffee_shop_app/views/main-pages/dessert_page.dart';
+import 'package:coffee_shop_app/views/main-pages/snacks_page.dart';
 import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
-import 'package:coffee_shop_app/models/coffeeProduct.dart';
-import 'package:coffee_shop_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +27,7 @@ class _HomeState extends State<Home> {
 
   var top = 0.0;
 
-  // RouteTransition routeTransition = RouteTransition();
+  RouteTransition routeTransition = RouteTransition();
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +65,10 @@ class _HomeState extends State<Home> {
                       color: Colors.white,
                       iconSize: 32.0,
                       onPressed: () {
-                        Navigator.of(context).push(_createCartRoute(CartPage()));
-                        // routeTransition.createRoute(CartPage(), 0.0, -1.0);
+                        // Navigator.of(context).push(_createCartRoute(CartPage()));
+                        Navigator.of(context).push(
+                          routeTransition.createRoute(CartPage(), 0.0, -1.0)
+                        );
                       },
                     ),
                   ),
@@ -114,8 +113,10 @@ class _HomeState extends State<Home> {
                         MyIcons.coffeIcon, 
                         'Order Coffee', 
                         () {
-                          Navigator.of(context).push(_createRoute(CoffeePage()));
-                          // routeTransition.createRoute(CoffeePage(), -1.0, 0.0);
+                          // Navigator.of(context).push(_createRoute(CoffeePage()));
+                          Navigator.of(context).push(
+                            routeTransition.createRoute(CoffeePage(), -1.0, 0.0)
+                          );
                         }
                       )
                     ),
@@ -126,8 +127,10 @@ class _HomeState extends State<Home> {
                         MyIcons.burgerIcon, 
                         'Order Snacks', 
                         () {
-                          Navigator.of(context).push(_createRoute(SnacksPage()));
-                          // routeTransition.createRoute(SnacksPage(), -1.0, 0.0);
+                          // Navigator.of(context).push(_createRoute(SnacksPage()));
+                          Navigator.of(context).push(
+                            routeTransition.createRoute(SnacksPage(), -1.0, 0.0)
+                          );
                         }
                       ),
                     ),
@@ -138,8 +141,10 @@ class _HomeState extends State<Home> {
                         MyIcons.iceCreamIcon, 
                         'Order Desserts', 
                         () {
-                          Navigator.of(context).push(_createRoute(DessertsPage()));
-                          // routeTransition.createRoute(DessertsPage(), -1.0, 0.0);
+                          // Navigator.of(context).push(_createRoute(DessertsPage()));
+                          Navigator.of(context).push(
+                            routeTransition.createRoute(DessertsPage(), -1.0, 0.0)
+                          );
                         }
                       ),
                     ),
@@ -163,41 +168,3 @@ class _HomeState extends State<Home> {
       );
   }
 }
-
-Route _createRoute(var routePage) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => routePage,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(-1.0, 0.0);
-      // var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      // var tween = Tween(begin: begin, end: end);
-      var curve = Curves.ease;
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      //var offsetAnimation = animation.drive(tween);
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
-
-Route _createCartRoute(var routePage) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => routePage,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, -1.0);
-      // var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      // var tween = Tween(begin: begin, end: end);
-      var curve = Curves.ease;
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      //var offsetAnimation = animation.drive(tween);
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-} 

@@ -1,8 +1,6 @@
-import 'package:coffee_shop_app/home/gridview_item.dart';
-import 'package:coffee_shop_app/models/product.dart';
+import 'package:coffee_shop_app/views/home/gridview_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:provider/provider.dart';
 
 class ProductGridView extends StatefulWidget {
 

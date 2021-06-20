@@ -1,8 +1,7 @@
 import 'package:coffee_shop_app/common/route_transition.dart';
-import 'package:coffee_shop_app/icons/my_icons.dart';
-import 'package:coffee_shop_app/main-pages/admin-pages/admin_page.dart';
-import 'package:coffee_shop_app/nav_drawer_pages/about_us.dart';
-import 'package:coffee_shop_app/nav_drawer_pages/contact_us.dart';
+import 'package:coffee_shop_app/views/admin-pages/admin_page.dart';
+import 'package:coffee_shop_app/views/nav_drawer_pages/about_us.dart';
+import 'package:coffee_shop_app/views/nav_drawer_pages/contact_us.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,7 @@ class NavDrawer extends StatelessWidget {
 
   // instance of a AuthService class to acces authentication methods
   final AuthService _auth = AuthService();
-  // RouteTransition routeTransition = RouteTransition();
+  RouteTransition routeTransition = RouteTransition();
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +39,27 @@ class NavDrawer extends StatelessWidget {
             ),
 
             // rate app
-            CustomeListTile(Icons.star_rate, 'Rate App', () {
-              Navigator.of(context).push(_createRoute(AdminPage()));
-              // routeTransition.createRoute(AdminPage(), -1.0, 0.0); 
+            CustomeListTile(Icons.admin_panel_settings, 'Admin Panel', () {
+              // Navigator.of(context).push(_createRoute(AdminPage()));
+              Navigator.of(context).push(
+                routeTransition.createRoute(AdminPage(), -1.0, 0.0)
+              );
             }),
 
             // contact us
             CustomeListTile(Icons.support_agent, 'Contact Us', () {
-              Navigator.of(context).push(_createRoute(ContactUs()));
-              // routeTransition.createRoute(ContactUs(), -1.0, 0.0); 
+              // Navigator.of(context).push(_createRoute(ContactUs()));
+              Navigator.of(context).push(
+                routeTransition.createRoute(ContactUs(), -1.0, 0.0)
+              );
             }),
 
             // about us
             CustomeListTile(Icons.info, 'About Us', () {
-              Navigator.of(context).push(_createRoute(AboutUs()));
-              // routeTransition.createRoute(AboutUs(), -1.0, 0.0); 
+              // Navigator.of(context).push(_createRoute(AboutUs()));
+              Navigator.of(context).push(
+                routeTransition.createRoute(AboutUs(), -1.0, 0.0)
+              );
             }),
             CustomeListTile(Icons.logout, 'Log Out', () {
 
@@ -113,9 +118,9 @@ class NavDrawer extends StatelessWidget {
 
 class CustomeListTile extends StatelessWidget {
 
-  IconData icon;
-  String text;
-  Function onTap;
+  final IconData icon;
+  final String text;
+  final Function onTap;
 
   CustomeListTile(this.icon, this.text, this.onTap);
 
@@ -153,23 +158,4 @@ class CustomeListTile extends StatelessWidget {
       ),
     );
   }
-}
-
-Route _createRoute(var routePage) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => routePage,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(-1.0, 0.0);
-      // var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      // var tween = Tween(begin: begin, end: end);
-      var curve = Curves.ease;
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      //var offsetAnimation = animation.drive(tween);
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }

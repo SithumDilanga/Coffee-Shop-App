@@ -39,6 +39,7 @@ dependencies:
   firebase_storage: ^7.0.0
   image_picker: ^0.6.7+22
   flutter_native_splash: any # for splash screen
+  flutter_launcher_icons: ^0.8.1 # for
 
 dev_dependencies:
   flutter_test:
@@ -99,9 +100,16 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+# for splash screen
 flutter_native_splash:
   color: "#FFFFFF"
   # background_image: "assets/background.png"
   image: assets/logo.png
   ios: false
   web: false
+
+# for app icon
+flutter_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/app_icon/app_icon.png"

@@ -1,6 +1,5 @@
-import 'package:coffee_shop_app/authenticate/login.dart';
 import 'package:coffee_shop_app/common/loading.dart';
-import 'package:coffee_shop_app/home/home.dart';
+import 'package:coffee_shop_app/views/home/home.dart';
 import 'package:coffee_shop_app/services/auth.dart';
 import 'package:flutter/material.dart';
 

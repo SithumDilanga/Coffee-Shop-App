@@ -1,6 +1,3 @@
-import 'dart:isolate';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coffee_shop_app/common/isAddedToCart.dart';
 import 'package:coffee_shop_app/common/lock_cart_user.dart';
 import 'package:coffee_shop_app/common/on_the_way_card.dart';
 import 'package:coffee_shop_app/models/cart.dart';
@@ -12,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-import '../services/database.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -226,16 +222,7 @@ class _CartPageState extends State<CartPage> {
                                                         // how many users using cart realtime
                                                         // DataBaseService().currentCartUsersCountRef.doc('ux126').update({'count': FieldValue.increment(-1)});
 
-                                                        LockCartUser.once = false;
-
-                                                        // setting itemOnTheWay to false
-                                                        // if(itemOntheWay) {
-                                                          
-                                                        //   setState(() {
-                                                        //     itemOntheWay = false;
-                                                        //   });
-
-                                                        // }
+                                                        LockCartUser.once = false;  
                                                         
                                                       }
 

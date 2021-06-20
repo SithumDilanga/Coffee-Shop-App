@@ -1,22 +1,19 @@
-import 'package:coffee_shop_app/home/product_gridview.dart';
-import 'package:coffee_shop_app/home/home.dart';
-import 'package:coffee_shop_app/main-pages/coffee_page_content.dart';
-import 'package:coffee_shop_app/models/SnackProduct.dart';
-import 'package:coffee_shop_app/models/product.dart';
+import 'package:coffee_shop_app/views/home/product_gridview.dart';
+import 'package:coffee_shop_app/models/dessertProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SnacksPage extends StatefulWidget {
+class DessertsPage extends StatefulWidget {
   @override
-  SnacksPageState createState() => SnacksPageState();
+  DessertsPageState createState() => DessertsPageState();
 }
 
-class SnacksPageState extends State<SnacksPage> {
+class DessertsPageState extends State<DessertsPage> {
   @override
   Widget build(BuildContext context) {
 
     // list of coffee products
-    final snackProducts = Provider.of<List<SnackProduct>>(context, listen: true) ?? [];
+    final dessertProducts = Provider.of<List<DessertProduct>>(context, listen: true) ?? [];
 
     return 
     MaterialApp(
@@ -49,7 +46,7 @@ class SnacksPageState extends State<SnacksPage> {
                 ),
                 SizedBox(width: 16.0),
                 Text(
-                  'Snacks',
+                  'Desserts',
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,
@@ -66,7 +63,7 @@ class SnacksPageState extends State<SnacksPage> {
               ]
             ),
             SizedBox(height: 50.0),
-            ProductGridView(productCategory: snackProducts,)
+            ProductGridView(productCategory: dessertProducts,)
           ],
         ),
       )

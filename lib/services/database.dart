@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_shop_app/models/SnackProduct.dart';
 import 'package:coffee_shop_app/models/TodaySpecialsPoroduct.dart';
@@ -226,56 +224,22 @@ class DataBaseService {
 
   // ------------ Delete Products ----------------
 
-    Future removeProduct(String category, String productName) async {
+  Future removeProduct(String category, String productName) async {
 
-      switch(category) {
-        case 'Coffee' : {
-
-          deleteItem(coffeeCollection, productName);
-          // coffeeCollection
-          // .where('name', isEqualTo: productName)
-          // .get().then((value) {
-          //   value.docs.forEach((element) {
-          //     coffeeCollection.doc(element.id).delete().then((val) {
-          //       print('deleted ' + element.id);
-          //     });
-          //   });
-          // });
-          break;
-        }
-
-        case 'Snacks' : {
-
-          deleteItem(snacksCollection, productName);
-          // snacksCollection
-          // .where('name', isEqualTo: productName)
-          // .get().then((value) {
-          //   value.docs.forEach((element) {
-          //     snacksCollection.doc(element.id).delete().then((val) {
-          //       print('deleted ' + element.id);
-          //     });
-          //   });
-          // });
-          break;
-
-        }
-
-        case 'Desserts' : {
-
-          deleteItem(dessertsCollection, productName);
-          // dessertsCollection
-          // .where('name', isEqualTo: productName)
-          // .get().then((value) {
-          //   value.docs.forEach((element) {
-          //     dessertsCollection.doc(element.id).delete().then((val) {
-          //       print('deleted ' + element.id);
-          //     });
-          //   });
-          // });
-          break;
-
-        } 
+    switch(category) {
+      case 'Coffee' : {
+        deleteItem(coffeeCollection, productName);
+        break;
       }
+      case 'Snacks' : {
+        deleteItem(snacksCollection, productName);
+        break;
+      }
+      case 'Desserts' : {
+        deleteItem(dessertsCollection, productName);
+        break;
+      } 
+    }
     
   }
 
