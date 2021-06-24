@@ -8,4 +8,6 @@ Customized app for a coffee shop where customers can order coffee and other food
 
 <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/Coffee Shop App Use Case-cropped.png" height=1000/>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+## Screenshots
+
+<img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/1.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/2.png" height=500/>
