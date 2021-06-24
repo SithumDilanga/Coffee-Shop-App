@@ -11,3 +11,17 @@ Customized app for a coffee shop where customers can order coffee and other food
 ## Screenshots
 
 <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/1.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/2.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/3.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/4.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/5.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/6.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/7.png" height=500/>
+
+## Packages Used :
+  - [provider](https://pub.dev/packages/provider)
+  - [firebase_core](https://pub.dev/packages/firebase_core)
+  - [firebase_storage](https://pub.dev/packages/firebase_storage)
+  - [cloud_firestore](https://pub.dev/packages/cloud_firestore)
+  - [firebase_auth](https://pub.dev/packages/firebase_auth)
+  - [hexcolor](https://pub.dev/packages/hexcolor)
+  - [flutter_spinkit](https://pub.dev/packages/flutter_spinkit)
+  - [fluttertoast](https://pub.dev/packages/fluttertoast)
+  - [flutter_staggered_grid_view](https://pub.dev/packages/flutter_staggered_grid_view)
+  - [image_picker](https://pub.dev/packages/image_picker)
+  - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
+  - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons)
