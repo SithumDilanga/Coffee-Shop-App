@@ -10,5 +10,4 @@ Customized app for a coffee shop where customers can order coffee and other food
 
 ## Screenshots
 
-<img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/1.png" height=500/> 
-<img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/2.png" height=500/>
+<img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/1.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/2.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/3.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/4.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/5.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/6.png" height=500/> <img src="https://github.com/SithumDilanga/Coffee-Shop-App/blob/master/Screenshots/7.png" height=500/>
