@@ -25,3 +25,5 @@ Customized app for a coffee shop where customers can order coffee and other food
   - [image_picker](https://pub.dev/packages/image_picker)
   - [flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
   - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons)
+
+Note : Create your own firebase project and add google-services.json file to the app directory to connect the app.
