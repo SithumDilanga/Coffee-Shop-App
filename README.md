@@ -1,16 +1,7 @@
-# coffee_shop_app
+# Coffee Shop App
 
-A new Flutter project.
+## Scenario
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+Customized app for a coffee shop where customers can order coffee and other food easily. In this scenario, the customer has to be at the coffee shop. Customer can enter which table number he/she in and place the order. By using this app customer don't have to go to the cashier and read through menu and ask what are the available drinks, food for today and don't have to bother about all these things because the app shows all the available coffee, food, and special items, offers and more. Customer can easily pay the bill online via app or pay to the cashier if he/she wants.
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
